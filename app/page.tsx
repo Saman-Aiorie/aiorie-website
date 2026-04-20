@@ -18,13 +18,13 @@ export default function Home() {
       title: "IFS.ai Cloud ERP Consulting",
       points: [
         "IFS manufacturing, project and supply chain expertise",
-        "IFS.ai MSO Manufacturing Schedluing and Optimization - support",
+        "IFS.ai MSO Manufacturing Scheduling and Optimization - support",
         "IFS.ai upgrade expertise",
-        "IFS Integration and Configuration ",
+        "IFS Integration and Configuration",
       ],
     },
     {
-      title: "ManufacturingPlanning & Scheduling Advisory",
+      title: "Manufacturing Planning & Scheduling Advisory",
       points: [
         "Master Scheduling and S&OP support",
         "Finite scheduling and APS design",
@@ -45,9 +45,9 @@ export default function Home() {
 
   const industries = [
     "Discrete Manufacturing",
-    "Project Based Manufacturing",
+    "Project-Based Manufacturing",
     "Engineer-to-Order Manufacturing",
-    "Repeatitive Manufacturing",
+    "Repetitive Manufacturing",
   ];
 
   const strengths = [
@@ -119,11 +119,11 @@ export default function Home() {
               </h1>
 
               <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-600">
-                AIORIE helps organizations improve manufacturing planning, scheduling, and ERP-driven operations — with deep IFS expertise and advanced optimization capability.
+                AIORIE helps organizations improve manufacturing planning, scheduling, and ERP-driven operations — combining deep IFS expertise with advanced optimization capabilities.
               </p>
 
               <p className="mt-3 max-w-2xl text-base leading-7 text-slate-500">
-                We combine practical manufacturing knowledge, enterprise systems experience, and advanced scheduling insight to solve planning challenges that standard approaches often fail to handle well.
+                We bring together practical manufacturing knowledge, enterprise systems experience, and advanced scheduling insight to address planning challenges that standard approaches often fail to resolve effectively. We also provide the expertise and tools required to solve complex manufacturing operational challenges.
               </p>
 
               <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-2">
@@ -229,7 +229,7 @@ export default function Home() {
 
                       <div className="max-w-full rounded-2xl border border-slate-200 bg-white p-4">
                         <div className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
-                          Planing Outcomes
+                          Planning Outcomes
                         </div>
                         <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
                           {[
@@ -273,10 +273,10 @@ export default function Home() {
                 Services
               </div>
               <h2 className="mt-2 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
-                Consulting and solution capability built around real manufacturing complexity.
+                Consulting and solution capabilities designed for real manufacturing complexity.
               </h2>
               <p className="mt-4 text-lg leading-8 text-slate-600">
-                AIORIE supports manufacturers and operations teams with practical expertise across ERP, planning, scheduling, and optimization-led improvement.
+                AIORIE supports manufacturers and operations teams with practical expertise across ERP, planning, scheduling, and optimization-driven improvement.
               </p>
             </div>
 
@@ -305,7 +305,7 @@ export default function Home() {
                 Industries
               </div>
               <h2 className="mt-2 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
-                Relevant where manufacturing and delivery complexity are high.
+                Designed for industries with high manufacturing and delivery complexity.
               </h2>
               <p className="mt-4 text-lg leading-8 text-slate-600">
                 Our work is most valuable in environments where planning decisions, resource constraints, and execution quality directly shape business performance.
@@ -326,7 +326,7 @@ export default function Home() {
           <div className="mx-auto grid min-w-0 max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:gap-10 lg:px-8">
             <div className="min-w-0 max-w-full">
               <div className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-300">
-                Interactive Finte Optimization Platform
+                Interactive Finite Optimization Platform
               </div>
               <h2 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">
                 <span className="inline-flex items-center gap-3">
