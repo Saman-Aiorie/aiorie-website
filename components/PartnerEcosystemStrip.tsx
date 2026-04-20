@@ -20,7 +20,7 @@ const partners = [
 
 export function PartnerEcosystemStrip() {
   return (
-    <div className="w-full">
+    <div className="w-full min-w-0 max-w-full">
       <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
         Partner Ecosystem
       </p>

@@ -60,28 +60,28 @@ export default function Home() {
   const nav = ["Services", "Industries", "Cognitum APS", "About", "Contact"];
 
   return (
-    <div className="min-h-screen bg-white text-slate-900">
-      <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
+    <div className="min-h-screen w-full max-w-full overflow-x-hidden bg-white text-slate-900">
+      <header className="sticky top-0 z-50 w-full max-w-full border-b border-slate-200/80 bg-white/90 backdrop-blur">
+        <div className="mx-auto flex min-w-0 max-w-7xl items-center justify-between gap-2 px-4 py-4 sm:gap-4 sm:px-6 lg:px-8">
           <Link
             href="/"
-            className="flex min-w-0 flex-col gap-1 sm:flex-row sm:items-center sm:gap-3"
+            className="flex min-w-0 max-w-full flex-1 flex-col gap-1 sm:flex-row sm:items-center sm:gap-3"
           >
             <Image
               src="/AIORIE.jpeg"
               alt="AIORIE"
               width={384}
               height={256}
-              className="h-8 w-auto max-w-[min(100%,12rem)] object-contain object-left sm:h-9 sm:max-w-[13.5rem]"
+              className="h-8 w-auto max-w-[min(100%,7.5rem)] object-contain object-left sm:h-9 sm:max-w-[min(100%,12rem)] md:max-w-[13.5rem]"
               priority
-              sizes="(max-width: 640px) 192px, 216px"
+              sizes="(max-width: 640px) 120px, 216px"
             />
-            <span className="text-[11px] leading-snug text-slate-500 sm:max-w-[11rem] sm:border-l sm:border-slate-200 sm:pl-3 md:max-w-none">
+            <span className="max-w-full break-words text-[11px] leading-snug text-slate-500 sm:max-w-[11rem] sm:border-l sm:border-slate-200 sm:pl-3 md:max-w-none">
               Manufacturing Systems & Optimization
             </span>
           </Link>
 
-          <nav className="hidden items-center gap-8 md:flex">
+          <nav className="hidden min-w-0 items-center gap-8 md:flex">
             {nav.map((item) => (
               <a
                 key={item}
@@ -95,21 +95,21 @@ export default function Home() {
 
           <a
             href="#contact"
-            className="rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700"
+            className="shrink-0 rounded-xl bg-blue-600 px-2.5 py-2 text-[11px] font-semibold leading-tight text-white shadow-sm transition hover:bg-blue-700 sm:px-4 sm:py-2.5 sm:text-sm"
           >
             Request Consultation
           </a>
         </div>
       </header>
 
-      <main>
-        <section className="relative overflow-hidden">
+      <main className="w-full min-w-0 max-w-full">
+        <section className="relative w-full max-w-full overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0 -z-10 bg-gradient-to-br from-white via-blue-50 to-slate-100" />
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,_rgba(37,99,235,0.18),_transparent_40%),radial-gradient(circle_at_bottom_left,_rgba(14,165,233,0.12),_transparent_40%)]" />
         
-        <div className="mx-auto grid max-w-7xl gap-10 px-6 pb-16 pt-10 lg:grid-cols-2 lg:gap-12 lg:px-8 lg:pb-20 lg:pt-12">
-            <div className="relative z-10">
+        <div className="mx-auto grid min-w-0 max-w-7xl gap-10 px-4 pb-16 pt-10 sm:px-6 lg:grid-cols-2 lg:gap-12 lg:px-8 lg:pb-20 lg:pt-12">
+            <div className="relative z-10 min-w-0 max-w-full">
             <div className="inline-flex items-center rounded-full border border-slate-200 bg-white/80 backdrop-blur px-4 py-1.5 text-sm font-semibold text-slate-700 shadow-sm">
   AI • Operations Research • Industrial Engineering
 </div>
@@ -200,8 +200,8 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="relative z-10 flex flex-col gap-5">
-              <div className="rounded-[28px] border border-slate-200 bg-white p-5 shadow-[0_20px_80px_-20px_rgba(15,23,42,0.18)]">
+            <div className="relative z-10 flex min-w-0 max-w-full flex-col gap-5">
+              <div className="max-w-full rounded-[28px] border border-slate-200 bg-white p-5 shadow-[0_20px_80px_-20px_rgba(15,23,42,0.18)]">
                 <div className="rounded-[22px] border border-slate-200 bg-slate-50 p-5">
                   <div className="flex items-center justify-between border-b border-slate-200 pb-4">
                     <div>
@@ -227,11 +227,11 @@ export default function Home() {
                         </ul>
                       </div>
 
-                      <div className="rounded-2xl border border-slate-200 bg-white p-4">
+                      <div className="max-w-full rounded-2xl border border-slate-200 bg-white p-4">
                         <div className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
                           Planing Outcomes
                         </div>
-                        <div className="mt-3 grid grid-cols-2 gap-3">
+                        <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
                           {[
                             ["Reliability", "Higher"],
                             ["Nervousness", "Lower"],
@@ -267,7 +267,7 @@ export default function Home() {
           id="services"
           className="border-y border-slate-200 bg-slate-50/80 py-16 lg:py-20"
         >
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto min-w-0 max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl">
               <div className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-700">
                 Services
@@ -299,7 +299,7 @@ export default function Home() {
         </section>
 
         <section id="industries" className="py-16 lg:py-20">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto min-w-0 max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl">
               <div className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-700">
                 Industries
@@ -323,13 +323,23 @@ export default function Home() {
         </section>
 
         <section id="cognitum-aps" className="bg-slate-950 py-16 text-white lg:py-20">
-          <div className="mx-auto grid max-w-7xl gap-8 px-6 lg:grid-cols-[0.95fr_1.05fr] lg:gap-10 lg:px-8">
-            <div>
+          <div className="mx-auto grid min-w-0 max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:gap-10 lg:px-8">
+            <div className="min-w-0 max-w-full">
               <div className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-300">
                 Interactive Finte Optimization Platform
               </div>
               <h2 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">
-                Cognitum APS
+                <span className="inline-flex items-center gap-3">
+                  <Image
+                    src="/aiorie-symbol-dark.png"
+                    alt=""
+                    width={28}
+                    height={28}
+                    className="h-7 w-7 rounded-sm bg-white p-0.5 object-contain"
+                    aria-hidden
+                  />
+                  <span>Cognitum APS</span>
+                </span>
               </h2>
               <p className="mt-4 text-lg leading-8 text-slate-300">
                 A next-generation, browser-based Advanced Planning & Scheduling workbench designed for real-world manufacturing complexity.
@@ -355,7 +365,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="rounded-[28px] border border-slate-800 bg-slate-900 p-6 shadow-[0_20px_80px_-20px_rgba(0,0,0,0.45)]">
+            <div className="min-w-0 max-w-full rounded-[28px] border border-slate-800 bg-slate-900 p-6 shadow-[0_20px_80px_-20px_rgba(0,0,0,0.45)]">
               <div className="grid gap-4 sm:grid-cols-2">
                 {[
                   ["Visual Workspace", "Context-driven planning surface"],
@@ -374,8 +384,8 @@ export default function Home() {
         </section>
 
         <section id="about" className="py-16 lg:py-20">
-          <div className="mx-auto grid max-w-7xl gap-8 px-6 lg:grid-cols-2 lg:gap-10 lg:px-8">
-            <div>
+          <div className="mx-auto grid min-w-0 max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-2 lg:gap-10 lg:px-8">
+            <div className="min-w-0 max-w-full">
               <div className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-700">
                 About AIORIE
               </div>
@@ -387,7 +397,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="grid min-w-0 max-w-full gap-4 sm:grid-cols-2">
               {strengths.map((value) => (
                 <div key={value} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
                   <div className="text-lg font-semibold text-slate-900">{value}</div>
@@ -398,9 +408,9 @@ export default function Home() {
         </section>
 
         <section id="contact" className="border-t border-slate-200 bg-blue-600 py-16 text-white lg:py-20">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto min-w-0 max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-end lg:gap-10">
-              <div>
+              <div className="min-w-0 max-w-full">
                 <div className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-100">
                   Contact
                 </div>
@@ -419,7 +429,7 @@ export default function Home() {
                 </address>
               </div>
 
-              <div className="flex flex-wrap gap-4 lg:justify-end">
+              <div className="flex min-w-0 max-w-full flex-wrap gap-4 lg:justify-end">
                 <a
                   href={FREE_SESSION_HREF}
                   target="_blank"
@@ -440,8 +450,8 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="border-t border-slate-200 bg-white">
-        <div className="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-6 lg:flex-row lg:items-center lg:justify-between lg:px-8 lg:py-8">
+      <footer className="w-full max-w-full border-t border-slate-200 bg-white">
+        <div className="mx-auto flex min-w-0 max-w-7xl flex-col gap-4 px-4 py-6 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8 lg:py-8">
           <p className="max-w-3xl text-xs leading-relaxed text-slate-500">
             © 2026 AIORIE Pty Ltd · ABN 47 694 210 056 · All rights reserved
           </p>

@@ -578,10 +578,10 @@ export function CognitumPreview() {
   return (
     <div
       ref={panelRef}
-      className="rounded-[28px] border border-slate-200 bg-white p-3 shadow-[0_20px_80px_-20px_rgba(15,23,42,0.18)]"
+      className="w-full max-w-full min-w-0 rounded-[28px] border border-slate-200 bg-white p-3 shadow-[0_20px_80px_-20px_rgba(15,23,42,0.18)]"
       onClick={onPanelClick}
     >
-      <div className="rounded-[22px] border border-slate-200 bg-slate-50">
+      <div className="max-w-full rounded-[22px] border border-slate-200 bg-slate-50">
         <div className="flex items-start justify-between gap-2 border-b border-slate-200/90 px-3 py-1.5">
           <div className="min-w-0">
             <div className="text-[13px] font-semibold leading-tight tracking-tight text-slate-900">
@@ -889,7 +889,7 @@ export function CognitumPreview() {
           </div>
         </div>
 
-        <div className="grid grid-cols-3 gap-px border-t border-slate-200/70 bg-slate-100/80 px-2.5 py-1">
+        <div className="grid grid-cols-1 gap-2 border-t border-slate-200/70 bg-slate-100/80 px-2.5 py-1 sm:grid-cols-3 sm:gap-px">
           {kpis.map((x) => (
             <div key={x.k} className="rounded-md bg-slate-50/95 px-1.5 py-1">
               <div className="text-[7px] font-medium uppercase tracking-[0.16em] text-slate-400">{x.k}</div>

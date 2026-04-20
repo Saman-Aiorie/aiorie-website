@@ -12,27 +12,27 @@ const nav = ["Services", "Industries", "Cognitum APS", "About", "Contact"];
 
 export default function TermsPage() {
   return (
-    <div className="min-h-screen bg-white text-slate-900">
-      <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
+    <div className="min-h-screen w-full max-w-full overflow-x-hidden bg-white text-slate-900">
+      <header className="sticky top-0 z-50 w-full max-w-full border-b border-slate-200/80 bg-white/90 backdrop-blur">
+        <div className="mx-auto flex min-w-0 max-w-7xl items-center justify-between gap-2 px-4 py-4 sm:gap-4 sm:px-6 lg:px-8">
           <Link
             href="/"
-            className="flex min-w-0 flex-col gap-1 sm:flex-row sm:items-center sm:gap-3"
+            className="flex min-w-0 max-w-full flex-1 flex-col gap-1 sm:flex-row sm:items-center sm:gap-3"
           >
             <Image
               src="/AIORIE.jpeg"
               alt="AIORIE"
               width={384}
               height={256}
-              className="h-8 w-auto max-w-[min(100%,12rem)] object-contain object-left sm:h-9 sm:max-w-[13.5rem]"
-              sizes="(max-width: 640px) 192px, 216px"
+              className="h-8 w-auto max-w-[min(100%,7.5rem)] object-contain object-left sm:h-9 sm:max-w-[min(100%,12rem)] md:max-w-[13.5rem]"
+              sizes="(max-width: 640px) 120px, 216px"
             />
-            <span className="text-[11px] leading-snug text-slate-500 sm:max-w-[11rem] sm:border-l sm:border-slate-200 sm:pl-3 md:max-w-none">
+            <span className="max-w-full break-words text-[11px] leading-snug text-slate-500 sm:max-w-[11rem] sm:border-l sm:border-slate-200 sm:pl-3 md:max-w-none">
               Manufacturing Systems & Optimization
             </span>
           </Link>
 
-          <nav className="hidden items-center gap-8 md:flex">
+          <nav className="hidden min-w-0 items-center gap-8 md:flex">
             {nav.map((item) => (
               <a
                 key={item}
@@ -46,15 +46,15 @@ export default function TermsPage() {
 
           <a
             href="/#contact"
-            className="rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700"
+            className="shrink-0 rounded-xl bg-blue-600 px-2.5 py-2 text-[11px] font-semibold leading-tight text-white shadow-sm transition hover:bg-blue-700 sm:px-4 sm:py-2.5 sm:text-sm"
           >
             Request Consultation
           </a>
         </div>
       </header>
 
-      <main className="flex-1">
-        <div className="mx-auto max-w-3xl px-6 py-16 lg:px-8 lg:py-20">
+      <main className="min-w-0 w-full max-w-full flex-1">
+        <div className="mx-auto min-w-0 max-w-3xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
           <h1 className="text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
             Terms of Use
           </h1>
@@ -147,8 +147,8 @@ export default function TermsPage() {
         </div>
       </main>
 
-      <footer className="border-t border-slate-200 bg-white">
-        <div className="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-6 lg:flex-row lg:items-center lg:justify-between lg:px-8 lg:py-8">
+      <footer className="w-full max-w-full border-t border-slate-200 bg-white">
+        <div className="mx-auto flex min-w-0 max-w-7xl flex-col gap-4 px-4 py-6 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8 lg:py-8">
           <p className="max-w-3xl text-xs leading-relaxed text-slate-500">
             © 2026 AIORIE Pty Ltd · ABN 47 694 210 056 · All rights reserved
           </p>
