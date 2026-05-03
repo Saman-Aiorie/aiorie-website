@@ -9,7 +9,7 @@ const partners = [
   {
     name: "NEEDLU",
     href: "https://needlu.com",
-    logoSrc: "/Needlu.png",
+    logoSrc: "/needlu.png",
   },
   {
     name: "PrimePilot",
@@ -41,7 +41,11 @@ export function PartnerEcosystemStrip() {
                     alt=""
                     width={180}
                     height={48}
-                    className="max-h-9 w-auto max-w-full object-contain object-center opacity-[0.92] transition duration-150 group-hover:opacity-100"
+                    className={
+                      p.name === "NEEDLU"
+                        ? "h-10 object-contain opacity-70 hover:opacity-100 transition"
+                        : "max-h-9 w-auto max-w-full object-contain object-center opacity-[0.92] transition duration-150 group-hover:opacity-100"
+                    }
                     sizes="(max-width: 640px) 200px, 160px"
                   />
                 </span>
