@@ -2,6 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { CognitumPreview } from "@/components/CognitumPreview";
+import { HeroMessageSwitcher } from "@/components/HeroMessageSwitcher";
+import { HeroSlideImage } from "@/components/HeroSlideImage";
+import { HeroSlideProvider } from "@/components/hero-slide-context";
 import { PartnerEcosystemStrip } from "@/components/PartnerEcosystemStrip";
 
 /** Override with NEXT_PUBLIC_CALENDLY_URL in `.env.local` if the booking link changes. */
@@ -86,7 +89,7 @@ export default function Home() {
               <a
                 key={item}
                 href={`#${item.toLowerCase().replace(/\s+/g, "-")}`}
-                className="text-sm font-medium text-slate-600 transition hover:text-slate-900"
+                className="rounded-full px-3 py-2 text-sm font-medium text-slate-700 transition-all duration-200 ease-out hover:-translate-y-px hover:bg-[rgba(37,99,235,0.12)] hover:text-slate-900 hover:shadow-[0_4px_14px_-4px_rgba(37,99,235,0.2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/35 focus-visible:ring-offset-2"
               >
                 {item}
               </a>
@@ -95,7 +98,7 @@ export default function Home() {
 
           <a
             href="#contact"
-            className="shrink-0 rounded-xl bg-blue-600 px-2.5 py-2 text-[11px] font-semibold leading-tight text-white shadow-sm transition hover:bg-blue-700 sm:px-4 sm:py-2.5 sm:text-sm"
+            className="shrink-0 rounded-xl bg-blue-600 px-2.5 py-2 text-[11px] font-semibold leading-tight text-white shadow-[0_6px_18px_rgba(37,99,235,0.25)] transition-all duration-300 ease-out hover:-translate-y-px hover:bg-blue-700 hover:shadow-[0_10px_26px_rgba(37,99,235,0.38)] sm:px-4 sm:py-2.5 sm:text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/45 focus-visible:ring-offset-2"
           >
             Request Consultation
           </a>
@@ -104,70 +107,32 @@ export default function Home() {
 
       <main className="w-full min-w-0 max-w-full">
         <section className="relative w-full max-w-full overflow-hidden">
-        {/* Background Image */}
-        <div className="absolute inset-0 -z-10 bg-gradient-to-br from-white via-blue-50 to-slate-100" />
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,_rgba(37,99,235,0.18),_transparent_40%),radial-gradient(circle_at_bottom_left,_rgba(14,165,233,0.12),_transparent_40%)]" />
+        {/* Hero-only backdrop: layered amethyst gradients (top → bottom stack in CSS order) */}
+        <div
+          className="absolute inset-0 -z-10"
+          style={{
+            backgroundColor: "#f2eef9",
+            backgroundImage: [
+              "radial-gradient(ellipse 110% 80% at 92% -5%, rgba(124, 58, 237, 0.2), transparent 52%)",
+              "radial-gradient(ellipse 90% 70% at -8% 102%, rgba(99, 102, 241, 0.14), transparent 56%)",
+              "linear-gradient(135deg, rgba(124, 58, 237, 0.16) 0%, rgba(167, 139, 250, 0.09) 32%, rgba(255, 255, 255, 0) 62%)",
+              "linear-gradient(305deg, rgba(99, 102, 241, 0.1) 0%, rgba(255, 255, 255, 0) 48%)",
+              "linear-gradient(180deg, #fdfcff 0%, #f4effb 42%, #f8f5fc 78%, #faf8ff 100%)",
+            ].join(", "),
+          }}
+        />
         
+        <HeroSlideProvider>
         <div className="mx-auto grid min-w-0 max-w-7xl gap-10 px-4 pb-16 pt-10 sm:px-6 lg:grid-cols-2 lg:gap-12 lg:px-8 lg:pb-20 lg:pt-12">
             <div className="relative z-10 min-w-0 max-w-full">
             <div className="inline-flex items-center rounded-full border border-slate-200 bg-white/80 backdrop-blur px-4 py-1.5 text-sm font-semibold text-slate-700 shadow-sm">
   AI • Operations Research • Industrial Engineering
 </div>
 
-              <h1 className="mt-4 max-w-4xl text-5xl font-semibold tracking-tight text-slate-950 sm:text-6xl">
-                Manufacturing Systems, Planning & Scheduling Expertise
-              </h1>
-
-              <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-600">
-                AIORIE helps organizations improve manufacturing planning, scheduling, and ERP-driven operations — combining deep IFS expertise with advanced optimization capabilities.
-              </p>
-
-              <p className="mt-3 max-w-2xl text-base leading-7 text-slate-500">
-                We bring together practical manufacturing knowledge, enterprise systems experience, and advanced scheduling insight to address planning challenges that standard approaches often fail to resolve effectively. We also provide the expertise and tools required to solve complex manufacturing operational challenges.
-              </p>
-
-              <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-2">
-                {[
-                  {
-                    title: "IFS.ai Cloud ERP Consulting",
-                    cardClass: "border-[#360065]/35 bg-[#f5f2fa]",
-                    titleClass: "text-[#360065]",
-                  },
-                  {
-                    title: "Planning & Scheduling Advisory",
-                    cardClass: "border-emerald-200 bg-emerald-50",
-                    titleClass: "text-emerald-950",
-                  },
-                  {
-                    title: "NEEDLU Solution Integrator",
-                    cardClass: "border-indigo-200 bg-indigo-50",
-                    titleClass: "text-indigo-950",
-                  },
-                  {
-                    title: "Cognitum APS",
-                    href: "#cognitum-aps",
-                    cardClass: "border-sky-200 bg-sky-50 hover:border-sky-300 hover:bg-sky-100",
-                    titleClass: "text-sky-950",
-                  },
-                ].map((item) =>
-                  item.href ? (
-                    <a
-                      key={item.title}
-                      href={item.href}
-                      className={`block rounded-2xl border px-4 py-4 shadow-sm transition ${item.cardClass}`}
-                    >
-                      <div className={`text-sm font-semibold ${item.titleClass}`}>{item.title}</div>
-                    </a>
-                  ) : (
-                    <div key={item.title} className={`rounded-2xl border px-4 py-4 shadow-sm ${item.cardClass}`}>
-                      <div className={`text-sm font-semibold ${item.titleClass}`}>{item.title}</div>
-                    </div>
-                  ),
-                )}
-              </div>
+              <HeroMessageSwitcher />
 
               {/* Editorial credibility — no card; light typography + left accent */}
-              <div className="mt-8 border-t border-slate-200/80 pt-8 lg:mt-10 lg:pt-10">
+              <div className="mt-10 border-t border-slate-200/80 pt-8 lg:mt-12 lg:pt-10">
                 <div className="border-l-2 border-blue-600/35 pl-5 sm:pl-6">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500">
                     Why AIORIE
@@ -201,66 +166,13 @@ export default function Home() {
             </div>
 
             <div className="relative z-10 flex min-w-0 max-w-full flex-col gap-5">
-              <div className="max-w-full rounded-[28px] border border-slate-200 bg-white p-5 shadow-[0_20px_80px_-20px_rgba(15,23,42,0.18)]">
-                <div className="rounded-[22px] border border-slate-200 bg-slate-50 p-5">
-                  <div className="flex items-center justify-between border-b border-slate-200 pb-4">
-                    <div>
-                      <div className="text-sm font-semibold text-slate-900">AIORIE Capability Snapshot</div>
-                      <div className="text-xs text-slate-500">Consulting, scheduling, optimization, and products</div>
-                    </div>
-                    <div className="rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-700">
-                      Enterprise Focus
-                    </div>
-                  </div>
-
-                  <div className="mt-5 grid gap-4">
-                    <div className="grid gap-4 md:grid-cols-2">
-                      <div className="rounded-2xl border border-slate-200 bg-white p-4">
-                        <div className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
-                          Consulting
-                        </div>
-                        <ul className="mt-3 space-y-3 text-sm leading-6 text-slate-600">
-                          <li>IFS advisory</li>
-                          <li>Manufacturing process alignment</li>
-                          <li>Scheduling strategy and design</li>
-                          <li>Constraint and capacity analysis</li>
-                        </ul>
-                      </div>
-
-                      <div className="max-w-full rounded-2xl border border-slate-200 bg-white p-4">
-                        <div className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
-                          Planning Outcomes
-                        </div>
-                        <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
-                          {[
-                            ["Reliability", "Higher"],
-                            ["Nervousness", "Lower"],
-                            ["Visibility", "Improved"],
-                            ["Control", "Stronger"],
-                          ].map(([label, value]) => (
-                            <div key={label} className="rounded-xl bg-slate-50 p-3">
-                              <div className="text-xs text-slate-500">{label}</div>
-                              <div className="mt-1 text-base font-semibold text-slate-900">{value}</div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="rounded-2xl border border-blue-100 bg-blue-50 p-4">
-                      <div className="text-sm font-semibold text-slate-900">Cognitum APS</div>
-                      <p className="mt-2 text-sm leading-6 text-slate-600">
-                        Our flagship APS product brings visual scheduling, scenario analysis, and optimization-focused workflow into a modern browser-based workbench.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <HeroSlideImage />
 
               <CognitumPreview />
               <PartnerEcosystemStrip />
             </div>
           </div>
+        </HeroSlideProvider>
         </section>
 
         <section

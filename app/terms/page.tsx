@@ -37,7 +37,7 @@ export default function TermsPage() {
               <a
                 key={item}
                 href={`/#${item.toLowerCase().replace(/\s+/g, "-")}`}
-                className="text-sm font-medium text-slate-600 transition hover:text-slate-900"
+                className="rounded-full px-3 py-2 text-sm font-medium text-slate-700 transition-all duration-200 ease-out hover:-translate-y-px hover:bg-[rgba(37,99,235,0.12)] hover:text-slate-900 hover:shadow-[0_4px_14px_-4px_rgba(37,99,235,0.2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/35 focus-visible:ring-offset-2"
               >
                 {item}
               </a>
@@ -46,7 +46,7 @@ export default function TermsPage() {
 
           <a
             href="/#contact"
-            className="shrink-0 rounded-xl bg-blue-600 px-2.5 py-2 text-[11px] font-semibold leading-tight text-white shadow-sm transition hover:bg-blue-700 sm:px-4 sm:py-2.5 sm:text-sm"
+            className="shrink-0 rounded-xl bg-blue-600 px-2.5 py-2 text-[11px] font-semibold leading-tight text-white shadow-[0_6px_18px_rgba(37,99,235,0.25)] transition-all duration-300 ease-out hover:-translate-y-px hover:bg-blue-700 hover:shadow-[0_10px_26px_rgba(37,99,235,0.38)] sm:px-4 sm:py-2.5 sm:text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/45 focus-visible:ring-offset-2"
           >
             Request Consultation
           </a>

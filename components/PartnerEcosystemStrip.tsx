@@ -9,12 +9,17 @@ const partners = [
   {
     name: "NEEDLU",
     href: "https://needlu.com",
-    logoSrc: "/needlu.png",
+    logoSrc: "/needlu_logo.png",
   },
   {
     name: "PrimePilot",
     href: "https://primepilot.ai",
     logoSrc: "/Primepilot.png",
+  },
+  {
+    name: "IERI",
+    href: "https://ieriresearch.com/",
+    logoSrc: "/ieri.jpg",
   },
 ] as const;
 
@@ -25,7 +30,7 @@ export function PartnerEcosystemStrip() {
         Partner Ecosystem
       </p>
       <div className="mt-3 rounded-2xl border border-slate-200/90 bg-white px-3 py-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] sm:px-4">
-        <ul className="grid grid-cols-1 gap-2.5 sm:grid-cols-3 sm:gap-3">
+        <ul className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 sm:gap-3 lg:grid-cols-4">
           {partners.map((p) => (
             <li key={p.href} className="min-w-0">
               <a
