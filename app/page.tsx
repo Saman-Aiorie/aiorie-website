@@ -1,339 +1,408 @@
+import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 
-import { CognitumPreview } from "@/components/CognitumPreview";
-import { HeroMessageSwitcher } from "@/components/HeroMessageSwitcher";
-import { HeroSlideImage } from "@/components/HeroSlideImage";
-import { HeroSlideProvider } from "@/components/hero-slide-context";
+import { CALENDLY_URL, mailtoHref } from "@/components/contact-links";
 import { PartnerEcosystemStrip } from "@/components/PartnerEcosystemStrip";
+import { SiteFooter } from "@/components/SiteFooter";
+import { SiteHeader } from "@/components/SiteHeader";
+import { PAGE_SHELL } from "@/components/site-constants";
 
-/** Override with NEXT_PUBLIC_CALENDLY_URL in `.env.local` if the booking link changes. */
-const DEFAULT_CALENDLY_URL = "https://calendly.com/saman-aiorie/30min";
-const FREE_SESSION_HREF =
-  process.env.NEXT_PUBLIC_CALENDLY_URL &&
-  /^https?:\/\//i.test(process.env.NEXT_PUBLIC_CALENDLY_URL)
-    ? process.env.NEXT_PUBLIC_CALENDLY_URL
-    : DEFAULT_CALENDLY_URL;
+export const metadata: Metadata = {
+  title: "AIORIE | IFS.ai Manufacturing Consulting & Optimization",
+  description:
+    "AIORIE provides IFS.ai manufacturing consulting for planning, scheduling, MSO, upgrades, integration and manufacturing optimization.",
+};
+
+const CONSULTING_SERVICES = [
+  {
+    title: "IFS.ai Manufacturing Consulting",
+    description:
+      "Support the design, configuration and improvement of IFS.ai manufacturing processes based on real operational requirements.",
+    capabilities: [
+      "Manufacturing process configuration",
+      "Project and engineer-to-order manufacturing",
+      "Production structures and operational flows",
+      "Manufacturing master data",
+      "Supply-chain and production alignment",
+      "Process and system improvement",
+    ],
+  },
+  {
+    title: "Manufacturing Planning & Scheduling",
+    description:
+      "Improve how manufacturing demand, capacity, materials and operational priorities are converted into practical plans and schedules.",
+    capabilities: [
+      "Master scheduling",
+      "Material and capacity planning",
+      "Finite scheduling",
+      "Work-centre and resource analysis",
+      "Bottleneck identification",
+      "Sequencing and priority rules",
+      "Planning and execution alignment",
+    ],
+  },
+  {
+    title: "IFS.ai MSO Support",
+    description:
+      "Support Manufacturing Scheduling and Optimization requirements within the broader IFS.ai manufacturing environment.",
+    capabilities: [
+      "Scheduling requirements analysis",
+      "Manufacturing-data readiness",
+      "Resource and capacity structures",
+      "Scheduling-rule alignment",
+      "Planning-process integration",
+      "Operational adoption and support",
+    ],
+  },
+  {
+    title: "IFS.ai Upgrades & Implementation Support",
+    description:
+      "Help manufacturing organisations preserve operational requirements and improve process alignment during implementation and upgrade programmes.",
+    capabilities: [
+      "Manufacturing requirement definition",
+      "Solution review and process alignment",
+      "Upgrade-impact assessment",
+      "Configuration support",
+      "Testing and validation",
+      "Data and integration considerations",
+      "Operational readiness",
+    ],
+  },
+  {
+    title: "Manufacturing Optimization Advisory",
+    description:
+      "Examine manufacturing constraints, capacity, workload and planning rules to identify practical opportunities for improving operational performance.",
+    capabilities: [
+      "Constraint and capacity analysis",
+      "Load-versus-capacity assessment",
+      "Bottleneck analysis",
+      "Scenario evaluation",
+      "Planning-rule improvement",
+      "Decision-support approaches",
+    ],
+  },
+  {
+    title: "IFS Integration & Process Automation",
+    description:
+      "Improve the flow of information and operational actions between IFS.ai ERP and connected manufacturing processes.",
+    capabilities: [
+      "Manufacturing-system integration",
+      "Workflow and alert design",
+      "Data validation",
+      "Approval and exception processes",
+      "Operational reporting",
+      "Reduction of repetitive manual work",
+    ],
+  },
+] as const;
+
+const MANUFACTURING_ENVIRONMENTS = [
+  "Discrete manufacturing",
+  "Engineer-to-order manufacturing",
+  "Project-based manufacturing",
+  "Repetitive manufacturing",
+  "High-mix and capacity-constrained operations",
+] as const;
+
+const ENGAGEMENT_STEPS = [
+  {
+    title: "Understand",
+    description:
+      "Review the manufacturing process, operational challenges, current IFS.ai environment and desired outcomes.",
+  },
+  {
+    title: "Analyse",
+    description:
+      "Examine configuration, data, planning rules, capacity structures, workflows and system interactions.",
+  },
+  {
+    title: "Align",
+    description:
+      "Define practical improvements that connect IFS.ai functionality with manufacturing requirements.",
+  },
+  {
+    title: "Support",
+    description:
+      "Assist with configuration, testing, implementation, adoption and continuous improvement as required.",
+  },
+] as const;
+
+const sectionEyebrowClass =
+  "text-sm font-semibold uppercase tracking-[0.22em] text-blue-700";
 
 export default function Home() {
-  const consultingServices = [
-    {
-      title: "IFS.ai Cloud ERP Consulting",
-      points: [
-        "IFS manufacturing, project and supply chain expertise",
-        "IFS.ai MSO Manufacturing Scheduling and Optimization - support",
-        "IFS.ai upgrade expertise",
-        "IFS Integration and Configuration",
-      ],
-    },
-    {
-      title: "Manufacturing Planning & Scheduling Advisory",
-      points: [
-        "Master Scheduling and S&OP support",
-        "Finite scheduling and APS design",
-        "Constraint modelling and resource analysis",
-        "Bottleneck identification and schedule reliability improvement",
-      ],
-    },
-    {
-      title: "Optimization & Custom Solutions",
-      points: [
-        "Operational optimization modelling",
-        "Scenario-based planning approaches",
-        "Decision-support solution design",
-        "Targeted solutions where standard ERP functionality falls short",
-      ],
-    },
-  ];
-
-  const industries = [
-    "Discrete Manufacturing",
-    "Project-Based Manufacturing",
-    "Engineer-to-Order Manufacturing",
-    "Repetitive Manufacturing",
-  ];
-
-  const strengths = [
-    "Deep IFS and manufacturing systems knowledge",
-    "Practical planning and scheduling expertise",
-    "Optimization-focused thinking",
-    "Solutions grounded in real operational constraints",
-  ];
-
-  const nav = ["Services", "Industries", "Cognitum APS", "About", "Contact"];
-
-  /** Wider enterprise shell (SAP-style) — header + homepage sections share the same horizontal rhythm. */
-  const PAGE_SHELL = "mx-auto w-full min-w-0 max-w-[1440px] px-6 lg:px-10 xl:px-16";
-
   return (
     <div className="min-h-screen w-full max-w-full overflow-x-hidden bg-white text-slate-900">
-      <header className="sticky top-0 z-50 w-full max-w-full border-b border-slate-200/80 bg-white/90 backdrop-blur">
-        <div className={`${PAGE_SHELL} flex items-center justify-between gap-2 py-4 sm:gap-4`}>
-          <Link
-            href="/"
-            className="flex min-w-0 max-w-full flex-1 flex-col gap-1 sm:flex-row sm:items-center sm:gap-3"
-          >
-            <Image
-              src="/AIORIE.jpeg"
-              alt="AIORIE"
-              width={384}
-              height={256}
-              className="h-8 w-auto max-w-[min(100%,7.5rem)] object-contain object-left sm:h-9 sm:max-w-[min(100%,12rem)] md:max-w-[13.5rem]"
-              priority
-              sizes="(max-width: 640px) 120px, 216px"
-            />
-            <span className="max-w-full break-words text-[11px] leading-snug text-slate-500 sm:max-w-[11rem] sm:border-l sm:border-slate-200 sm:pl-3 md:max-w-none">
-              Manufacturing Systems & Optimization
-            </span>
-          </Link>
-
-          <nav className="hidden min-w-0 items-center gap-8 md:flex">
-            {nav.map((item) => (
-              <a
-                key={item}
-                href={`#${item.toLowerCase().replace(/\s+/g, "-")}`}
-                className="rounded-full px-3 py-2 text-sm font-medium text-slate-700 transition-all duration-200 ease-out hover:-translate-y-px hover:bg-[rgba(37,99,235,0.12)] hover:text-slate-900 hover:shadow-[0_4px_14px_-4px_rgba(37,99,235,0.2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/35 focus-visible:ring-offset-2"
-              >
-                {item}
-              </a>
-            ))}
-          </nav>
-
-          <a
-            href="#contact"
-            className="shrink-0 rounded-xl bg-blue-600 px-2.5 py-2 text-[11px] font-semibold leading-tight text-white shadow-[0_6px_18px_rgba(37,99,235,0.25)] transition-all duration-300 ease-out hover:-translate-y-px hover:bg-blue-700 hover:shadow-[0_10px_26px_rgba(37,99,235,0.38)] sm:px-4 sm:py-2.5 sm:text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/45 focus-visible:ring-offset-2"
-          >
-            Request Consultation
-          </a>
-        </div>
-      </header>
+      <SiteHeader onHomepage shellClassName={PAGE_SHELL} />
 
       <main className="w-full min-w-0 max-w-full">
+        {/* Hero */}
         <section className="relative w-full max-w-full overflow-hidden">
-        {/* Hero-only backdrop: layered amethyst gradients (top → bottom stack in CSS order) */}
-        <div
-          className="absolute inset-0 -z-10"
-          style={{
-            backgroundColor: "#f2eef9",
-            backgroundImage: [
-              "radial-gradient(ellipse 110% 80% at 92% -5%, rgba(124, 58, 237, 0.2), transparent 52%)",
-              "radial-gradient(ellipse 90% 70% at -8% 102%, rgba(99, 102, 241, 0.14), transparent 56%)",
-              "linear-gradient(135deg, rgba(124, 58, 237, 0.16) 0%, rgba(167, 139, 250, 0.09) 32%, rgba(255, 255, 255, 0) 62%)",
-              "linear-gradient(305deg, rgba(99, 102, 241, 0.1) 0%, rgba(255, 255, 255, 0) 48%)",
-              "linear-gradient(180deg, #fdfcff 0%, #f4effb 42%, #f8f5fc 78%, #faf8ff 100%)",
-            ].join(", "),
-          }}
-        />
-        
-        <HeroSlideProvider>
-        <div className={`${PAGE_SHELL} grid gap-10 pb-16 pt-10 lg:grid-cols-2 lg:gap-12 lg:pb-20 lg:pt-12`}>
+          <div
+            className="absolute inset-0 -z-10"
+            style={{
+              backgroundColor: "#f2eef9",
+              backgroundImage: [
+                "radial-gradient(ellipse 110% 80% at 92% -5%, rgba(124, 58, 237, 0.2), transparent 52%)",
+                "radial-gradient(ellipse 90% 70% at -8% 102%, rgba(99, 102, 241, 0.14), transparent 56%)",
+                "linear-gradient(135deg, rgba(124, 58, 237, 0.16) 0%, rgba(167, 139, 250, 0.09) 32%, rgba(255, 255, 255, 0) 62%)",
+                "linear-gradient(305deg, rgba(99, 102, 241, 0.1) 0%, rgba(255, 255, 255, 0) 48%)",
+                "linear-gradient(180deg, #fdfcff 0%, #f4effb 42%, #f8f5fc 78%, #faf8ff 100%)",
+              ].join(", "),
+            }}
+          />
+
+          <div
+            className={`${PAGE_SHELL} grid gap-10 pb-16 pt-10 lg:grid-cols-2 lg:gap-12 lg:pb-20 lg:pt-12`}
+          >
             <div className="relative z-10 min-w-0 max-w-full">
-            <div className="inline-flex items-center rounded-full border border-slate-200 bg-white/80 backdrop-blur px-4 py-1.5 text-sm font-semibold text-slate-700 shadow-sm">
-  AI • Operations Research • Industrial Engineering
-</div>
+              <div className="inline-flex items-center rounded-full border border-slate-200 bg-white/80 px-4 py-1.5 text-sm font-semibold text-slate-700 shadow-sm backdrop-blur">
+                IFS.ai ERP • Manufacturing • Planning & Scheduling
+              </div>
 
-              <HeroMessageSwitcher />
+              <h1 className="mt-6 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl lg:text-[2.35rem] lg:leading-tight">
+                IFS.ai ERP Consulting for Manufacturing Scheduling and Optimization (MSO)
+              </h1>
+              <p className="mt-4 max-w-xl text-lg leading-8 text-slate-700">
+                Specialist IFS.ai ERP consulting for manufacturing organisations seeking stronger
+                planning, scheduling, and operational performance.
+              </p>
+              <p className="mt-3 max-w-xl text-base leading-7 text-slate-600">
+                Practical expertise connects ERP capabilities with real manufacturing requirements,
+                helping improve production visibility, resource utilisation, scheduling decisions, and
+                process efficiency.
+              </p>
 
-              {/* Editorial credibility — no card; light typography + left accent */}
-              <div className="mt-10 border-t border-slate-200/80 pt-8 lg:mt-12 lg:pt-10">
-                <div className="border-l-2 border-blue-600/35 pl-5 sm:pl-6">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500">
-                    Why AIORIE
-                  </p>
-                  <h2 className="mt-2 max-w-xl text-xl font-semibold tracking-tight text-slate-950 sm:text-[1.35rem] sm:leading-snug">
-                    Built on Practical Manufacturing, Planning, and ERP Experience
-                  </h2>
-                  <p className="mt-4 max-w-xl text-sm leading-7 text-slate-600">
-                    AIORIE is shaped by a practical understanding of manufacturing operations, planning,
-                    enterprise systems, and implementation reality. The focus is not only on what systems
-                    can do in theory, but on how planning, scheduling, and decision making actually work in
-                    live operational environments.
-                  </p>
-                  <div className="mt-5 max-w-xl divide-y divide-slate-200/90 border-t border-slate-200/90">
-                    {[
-                      "Engineering-grounded understanding of manufacturing environments",
-                      "Practical planning and scheduling perspective",
-                      "Long-term ERP and enterprise systems experience",
-                      "Delivery-focused thinking shaped by real implementation contexts",
-                    ].map((line) => (
-                      <p
-                        key={line}
-                        className="py-2.5 text-[13px] leading-snug text-slate-600 first:pt-0 last:pb-0"
-                      >
-                        {line}
-                      </p>
-                    ))}
+              <div className="mt-8 grid max-w-xl grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
+                <a
+                  href="#contact"
+                  className="group flex aspect-square min-h-[12.5rem] flex-col justify-between rounded-lg bg-blue-600 p-5 text-white shadow-sm transition duration-200 ease-out hover:-translate-y-0.5 hover:bg-blue-700 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/50 focus-visible:ring-offset-2"
+                >
+                  <div
+                    className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/15 text-white"
+                    aria-hidden
+                  >
+                    <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" stroke="currentColor" strokeWidth="1.75">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M4 7h16M4 12h10M4 17h16M9 7v10" />
+                    </svg>
                   </div>
-                </div>
+                  <span className="text-base font-semibold leading-snug tracking-tight">
+                    Discuss Your IFS.ai Requirements
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-white/95">
+                    <svg
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
+                      aria-hidden
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M3 10a.75.75 0 0 1 .75-.75h10.638L10.23 5.29a.75.75 0 1 1 1.04-1.08l5.5 5.25a.75.75 0 0 1 0 1.08l-5.5 5.25a.75.75 0 1 1-1.04-1.08l4.158-3.96H3.75A.75.75 0 0 1 3 10Z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </a>
+                <a
+                  href="#services"
+                  className="group flex aspect-square min-h-[12.5rem] flex-col justify-between rounded-lg bg-[#6D28D9] p-5 text-white shadow-sm transition duration-200 ease-out hover:-translate-y-0.5 hover:bg-[#5b21b6] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6D28D9]/50 focus-visible:ring-offset-2"
+                >
+                  <div
+                    className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/15 text-white"
+                    aria-hidden
+                  >
+                    <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" stroke="currentColor" strokeWidth="1.75">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M4 19V5M20 19V9M12 19V3" />
+                    </svg>
+                  </div>
+                  <span className="text-base font-semibold leading-snug tracking-tight">
+                    Explore Consulting Services
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-white/95">
+                    <svg
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
+                      aria-hidden
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M3 10a.75.75 0 0 1 .75-.75h10.638L10.23 5.29a.75.75 0 1 1 1.04-1.08l5.5 5.25a.75.75 0 0 1 0 1.08l-5.5 5.25a.75.75 0 1 1-1.04-1.08l4.158-3.96H3.75A.75.75 0 0 1 3 10Z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </a>
               </div>
             </div>
 
             <div className="relative z-10 flex min-w-0 max-w-full flex-col gap-5">
-              <HeroSlideImage />
-
-              <CognitumPreview />
+              <div className="w-full bg-gray-50 py-20">
+                <div className="relative aspect-[5/3] w-full overflow-hidden rounded-lg shadow-xl">
+                  <Image
+                    src="/consultancy.png"
+                    alt="IFS.ai manufacturing consulting and operational planning"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 640px"
+                    priority
+                  />
+                </div>
+              </div>
               <PartnerEcosystemStrip />
             </div>
           </div>
-        </HeroSlideProvider>
         </section>
 
+        {/* Why AIORIE */}
+        <section className="border-t border-slate-200/80 bg-white py-16 lg:py-20">
+          <div className={`${PAGE_SHELL} max-w-3xl`}>
+            <div className={sectionEyebrowClass}>Why AIORIE</div>
+            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
+              IFS.ai Expertise Grounded in Manufacturing Operations
+            </h2>
+            <p className="mt-5 text-lg leading-8 text-slate-600">
+              An ERP system creates value when its configuration, data and workflows reflect how
+              manufacturing actually operates.
+            </p>
+            <p className="mt-4 text-base leading-7 text-slate-600">
+              AIORIE works across manufacturing processes, planning, scheduling, projects and supply
+              chains to help organisations use IFS.ai ERP more effectively.
+            </p>
+            <p className="mt-4 text-base leading-7 text-slate-600">
+              Our approach begins with the operational requirement. We examine how orders, operations,
+              resources, materials, capacity, labour and planning rules interact before recommending
+              system or process changes.
+            </p>
+          </div>
+        </section>
+
+        {/* Consulting services */}
         <section
           id="services"
           className="border-y border-slate-200 bg-slate-50/80 py-16 lg:py-20"
         >
           <div className={PAGE_SHELL}>
             <div className="max-w-3xl">
-              <div className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-700">
-                Services
-              </div>
-              <h2 className="mt-2 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
-                Consulting and solution capabilities designed for real manufacturing complexity.
+              <div className={sectionEyebrowClass}>Consulting Services</div>
+              <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
+                Practical IFS.ai Consulting for Manufacturing Operations
               </h2>
-              <p className="mt-4 text-lg leading-8 text-slate-600">
-                AIORIE supports manufacturers and operations teams with practical expertise across ERP, planning, scheduling, and optimization-driven improvement.
-              </p>
             </div>
 
-            <div className="mt-8 grid gap-6 lg:grid-cols-3">
-              {consultingServices.map((service) => (
-                <div key={service.title} className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
+            <div className="mt-10 grid gap-6 lg:grid-cols-2 xl:grid-cols-3">
+              {CONSULTING_SERVICES.map((service) => (
+                <article
+                  key={service.title}
+                  className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm"
+                >
                   <h3 className="text-xl font-semibold text-slate-950">{service.title}</h3>
-                  <ul className="mt-5 space-y-3 text-sm leading-6 text-slate-600">
-                    {service.points.map((point) => (
-                      <li key={point} className="flex gap-3">
-                        <span className="mt-2 h-2 w-2 rounded-full bg-blue-600" />
-                        <span>{point}</span>
+                  <p className="mt-3 text-sm leading-6 text-slate-600">{service.description}</p>
+                  <ul className="mt-5 space-y-2.5 text-sm leading-6 text-slate-600">
+                    {service.capabilities.map((capability) => (
+                      <li key={capability} className="flex gap-3">
+                        <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-blue-600" aria-hidden />
+                        <span>{capability}</span>
                       </li>
                     ))}
                   </ul>
-                </div>
+                </article>
               ))}
             </div>
           </div>
         </section>
 
+        {/* Manufacturing environments */}
         <section id="industries" className="py-16 lg:py-20">
           <div className={PAGE_SHELL}>
             <div className="max-w-3xl">
-              <div className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-700">
-                Industries
-              </div>
-              <h2 className="mt-2 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
-                Designed for industries with high manufacturing and delivery complexity.
+              <div className={sectionEyebrowClass}>Manufacturing Environments</div>
+              <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
+                Support for Complex Manufacturing Operations
               </h2>
               <p className="mt-4 text-lg leading-8 text-slate-600">
-                Our work is most valuable in environments where planning decisions, resource constraints, and execution quality directly shape business performance.
+                AIORIE&apos;s experience is most relevant in manufacturing environments where planning,
+                resource constraints, project structures and execution quality directly influence delivery
+                performance.
               </p>
             </div>
 
-            <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {industries.map((industry) => (
-                <div key={industry} className="rounded-3xl border border-slate-200 bg-white p-6 text-lg font-medium text-slate-900 shadow-sm">
-                  {industry}
-                </div>
+            <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {MANUFACTURING_ENVIRONMENTS.map((environment) => (
+                <li
+                  key={environment}
+                  className="rounded-3xl border border-slate-200 bg-white p-6 text-base font-medium text-slate-900 shadow-sm"
+                >
+                  {environment}
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
         </section>
 
-        <section id="cognitum-aps" className="bg-slate-950 py-16 text-white lg:py-20">
-          <div className={`${PAGE_SHELL} grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:gap-10`}>
-            <div className="min-w-0 max-w-full">
-              <div className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-300">
-                Interactive Finite Optimization Platform
-              </div>
-              <h2 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">
-                <span className="inline-flex items-center gap-3">
-                  <Image
-                    src="/aiorie-symbol-dark.png"
-                    alt=""
-                    width={28}
-                    height={28}
-                    className="h-7 w-7 rounded-sm bg-white p-0.5 object-contain"
-                    aria-hidden
-                  />
-                  <span>Cognitum APS</span>
-                </span>
+        {/* Engagement approach */}
+        <section className="border-y border-slate-200 bg-slate-50/80 py-16 lg:py-20">
+          <div className={PAGE_SHELL}>
+            <div className="max-w-3xl">
+              <div className={sectionEyebrowClass}>How We Work</div>
+              <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
+                From Operational Requirement to Practical IFS.ai Improvement
               </h2>
-              <p className="mt-4 text-lg leading-8 text-slate-300">
-                A next-generation, browser-based Advanced Planning & Scheduling workbench designed for real-world manufacturing complexity.
-              </p>
-              <p className="mt-3 text-base leading-7 text-slate-400">
-                Cognitum APS is one of AIORIE’s core product investments. It extends our consulting and optimization capability into a modern planning platform built for visibility, control, and scenario-driven decision support.
-              </p>
-
-              <div className="mt-7 flex flex-wrap gap-3">
-                {[
-                  "Visual scheduling workspace",
-                  "Scenario planning",
-                  "Optimization-first approach",
-                  "Future-ready APS platform",
-                ].map((tag) => (
-                  <span
-                    key={tag}
-                    className="rounded-full border border-slate-700 bg-slate-900 px-4 py-2 text-sm text-slate-200"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
             </div>
 
-            <div className="min-w-0 max-w-full rounded-[28px] border border-slate-800 bg-slate-900 p-6 shadow-[0_20px_80px_-20px_rgba(0,0,0,0.45)]">
-              <div className="grid gap-4 sm:grid-cols-2">
-                {[
-                  ["Visual Workspace", "Context-driven planning surface"],
-                  ["Scenario Editing", "Safe what-if analysis"],
-                  ["Optimization", "Solver-backed schedule improvement"],
-                  ["Planner Control", "Fast, fluid browser interaction"],
-                ].map(([title, desc]) => (
-                  <div key={title} className="rounded-2xl bg-slate-800 p-5">
-                    <div className="text-base font-semibold text-white">{title}</div>
-                    <div className="mt-2 text-sm leading-6 text-slate-300">{desc}</div>
+            <ol className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              {ENGAGEMENT_STEPS.map((step, index) => (
+                <li
+                  key={step.title}
+                  className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-600 text-sm font-semibold text-white">
+                      {index + 1}
+                    </span>
+                    <h3 className="text-lg font-semibold text-slate-950">{step.title}</h3>
                   </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="about" className="py-16 lg:py-20">
-          <div className={`${PAGE_SHELL} grid gap-8 lg:grid-cols-2 lg:gap-10`}>
-            <div className="min-w-0 max-w-full">
-              <div className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-700">
-                About AIORIE
-              </div>
-              <h2 className="mt-2 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
-                Practical expertise grounded in enterprise manufacturing reality.
-              </h2>
-              <p className="mt-4 text-base leading-8 text-slate-600">
-                AIORIE was founded to solve a persistent problem: the gap between what enterprise systems promise and what operations actually need. We focus on practical outcomes across ERP, scheduling, planning, and optimization — especially in environments where complexity cannot be simplified away.
-              </p>
-            </div>
-
-            <div className="grid min-w-0 max-w-full gap-4 sm:grid-cols-2">
-              {strengths.map((value) => (
-                <div key={value} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-                  <div className="text-lg font-semibold text-slate-900">{value}</div>
-                </div>
+                  <p className="mt-3 text-sm leading-6 text-slate-600">{step.description}</p>
+                </li>
               ))}
-            </div>
+            </ol>
           </div>
         </section>
 
+        {/* About */}
+        <section id="about" className="py-16 lg:py-20">
+          <div className={`${PAGE_SHELL} max-w-3xl`}>
+            <div className={sectionEyebrowClass}>About AIORIE</div>
+            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
+              Manufacturing and IFS.ai Knowledge in One Consulting Practice
+            </h2>
+            <p className="mt-5 text-lg leading-8 text-slate-600">
+              AIORIE provides consulting at the intersection of manufacturing operations, enterprise
+              systems, planning, scheduling and optimization.
+            </p>
+            <p className="mt-4 text-base leading-7 text-slate-600">
+              We focus on practical alignment between IFS.ai ERP and the way manufacturing organisations
+              plan, execute and improve their operations.
+            </p>
+            <p className="mt-4 text-base leading-7 text-slate-600">
+              The objective is to help customers make better use of their systems while keeping
+              recommendations grounded in operational reality.
+            </p>
+          </div>
+        </section>
+
+        {/* Contact */}
         <section id="contact" className="border-t border-slate-200 bg-blue-600 py-16 text-white lg:py-20">
           <div className={PAGE_SHELL}>
             <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-end lg:gap-10">
               <div className="min-w-0 max-w-full">
-                <div className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-100">
-                  Contact
-                </div>
-                <h2 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">
-                  Ready to improve your manufacturing planning capability?
+                <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+                  Discuss Your IFS.ai Manufacturing Requirements
                 </h2>
                 <p className="mt-4 max-w-2xl text-lg leading-8 text-blue-50">
-                  Talk to AIORIE about IFS consulting, planning and scheduling improvement, optimization-led solution design, and Cognitum APS.
+                  Talk to AIORIE about IFS.ai manufacturing, planning and scheduling, MSO support,
+                  upgrades, implementation, integration or manufacturing optimization.
                 </p>
 
                 <address className="mt-7 max-w-md not-italic text-sm leading-7 text-blue-100">
@@ -346,18 +415,18 @@ export default function Home() {
 
               <div className="flex min-w-0 max-w-full flex-wrap gap-4 lg:justify-end">
                 <a
-                  href={FREE_SESSION_HREF}
+                  href={CALENDLY_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-xl bg-white px-5 py-3 text-sm font-semibold text-blue-700 transition hover:bg-blue-50"
+                  className="rounded-xl bg-white px-5 py-3 text-sm font-semibold text-blue-700 transition hover:bg-blue-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-600"
                 >
-                  Free Session
+                  Book a Consultation
                 </a>
                 <a
-                  href="mailto:saman@aiorie.com?subject=Cognitum%20APS%20Enquiry"
-                  className="rounded-xl border border-blue-300 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-500"
+                  href={mailtoHref("IFS.ai Manufacturing Consultation Enquiry")}
+                  className="rounded-xl border border-blue-300 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-600"
                 >
-                  Contact Us
+                  Contact AIORIE
                 </a>
               </div>
             </div>
@@ -365,21 +434,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="w-full max-w-full border-t border-slate-200 bg-white">
-        <div className={`${PAGE_SHELL} flex flex-col gap-4 py-6 lg:flex-row lg:items-center lg:justify-between lg:py-8`}>
-          <p className="max-w-3xl text-xs leading-relaxed text-slate-500">
-            © 2026 AIORIE Pty Ltd · ABN 47 694 210 056 · All rights reserved
-          </p>
-          <div className="flex shrink-0 gap-6 text-sm text-slate-500">
-            <Link href="/privacy" className="transition hover:text-slate-700">
-              Privacy
-            </Link>
-            <Link href="/terms" className="transition hover:text-slate-700">
-              Terms
-            </Link>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }
