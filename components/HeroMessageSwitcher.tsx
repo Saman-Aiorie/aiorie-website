@@ -25,11 +25,11 @@ export function HeroMessageSwitcher() {
             transition={textTransition}
             className="w-full"
           >
-            <h1 className="mt-4 max-w-4xl text-5xl font-semibold tracking-tight text-slate-950 sm:text-6xl">
+            <h1 className="mt-4 max-w-[720px] text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl lg:text-[3.25rem] lg:leading-[1.1]">
               {slide.title}
             </h1>
-            <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-600">{slide.description}</p>
-            <p className="mt-3 max-w-2xl text-base leading-7 text-slate-500">{slide.body}</p>
+            <p className="mt-5 max-w-[680px] text-lg leading-8 text-slate-600">{slide.description}</p>
+            <p className="mt-3 max-w-[680px] text-base leading-7 text-slate-500">{slide.body}</p>
           </motion.div>
         </AnimatePresence>
       </div>

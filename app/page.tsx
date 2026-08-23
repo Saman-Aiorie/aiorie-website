@@ -6,6 +6,7 @@ import { HeroMessageSwitcher } from "@/components/HeroMessageSwitcher";
 import { HeroSlideImage } from "@/components/HeroSlideImage";
 import { HeroSlideProvider } from "@/components/hero-slide-context";
 import { PartnerEcosystemStrip } from "@/components/PartnerEcosystemStrip";
+import { CONTENT_SHELL, HERO_TEXT_PAD } from "@/components/site-layout";
 
 /** Override with NEXT_PUBLIC_CALENDLY_URL in `.env.local` if the booking link changes. */
 const DEFAULT_CALENDLY_URL = "https://calendly.com/saman-aiorie/30min";
@@ -62,13 +63,10 @@ export default function Home() {
 
   const nav = ["Services", "Industries", "Cognitum APS", "About", "Contact"];
 
-  /** Wider enterprise shell (SAP-style) — header + homepage sections share the same horizontal rhythm. */
-  const PAGE_SHELL = "mx-auto w-full min-w-0 max-w-[1440px] px-6 lg:px-10 xl:px-16";
-
   return (
     <div className="min-h-screen w-full max-w-full overflow-x-hidden bg-white text-slate-900">
       <header className="sticky top-0 z-50 w-full max-w-full border-b border-slate-200/80 bg-white/90 backdrop-blur">
-        <div className={`${PAGE_SHELL} flex items-center justify-between gap-2 py-4 sm:gap-4`}>
+        <div className={`${CONTENT_SHELL} flex items-center justify-between gap-2 py-4 sm:gap-4`}>
           <Link
             href="/"
             className="flex min-w-0 max-w-full flex-1 flex-col gap-1 sm:flex-row sm:items-center sm:gap-3"
@@ -109,80 +107,88 @@ export default function Home() {
       </header>
 
       <main className="w-full min-w-0 max-w-full">
-        <section className="relative w-full max-w-full overflow-hidden">
-        {/* Hero-only backdrop: layered amethyst gradients (top → bottom stack in CSS order) */}
-        <div
-          className="absolute inset-0 -z-10"
-          style={{
-            backgroundColor: "#f2eef9",
-            backgroundImage: [
-              "radial-gradient(ellipse 110% 80% at 92% -5%, rgba(124, 58, 237, 0.2), transparent 52%)",
-              "radial-gradient(ellipse 90% 70% at -8% 102%, rgba(99, 102, 241, 0.14), transparent 56%)",
-              "linear-gradient(135deg, rgba(124, 58, 237, 0.16) 0%, rgba(167, 139, 250, 0.09) 32%, rgba(255, 255, 255, 0) 62%)",
-              "linear-gradient(305deg, rgba(99, 102, 241, 0.1) 0%, rgba(255, 255, 255, 0) 48%)",
-              "linear-gradient(180deg, #fdfcff 0%, #f4effb 42%, #f8f5fc 78%, #faf8ff 100%)",
-            ].join(", "),
-          }}
-        />
-        
         <HeroSlideProvider>
-        <div className={`${PAGE_SHELL} grid gap-10 pb-16 pt-10 lg:grid-cols-2 lg:gap-12 lg:pb-20 lg:pt-12`}>
-            <div className="relative z-10 min-w-0 max-w-full">
-            <div className="inline-flex items-center rounded-full border border-slate-200 bg-white/80 backdrop-blur px-4 py-1.5 text-sm font-semibold text-slate-700 shadow-sm">
-  AI • Operations Research • Industrial Engineering
-</div>
+          {/* Full-bleed hero: backgrounds + right visual span the viewport */}
+          <section className="relative w-full overflow-hidden">
+            <div
+              className="absolute inset-0 -z-10"
+              aria-hidden
+              style={{
+                backgroundColor: "#f2eef9",
+                backgroundImage: [
+                  "radial-gradient(ellipse 110% 80% at 92% -5%, rgba(124, 58, 237, 0.2), transparent 52%)",
+                  "radial-gradient(ellipse 90% 70% at -8% 102%, rgba(99, 102, 241, 0.14), transparent 56%)",
+                  "linear-gradient(135deg, rgba(124, 58, 237, 0.16) 0%, rgba(167, 139, 250, 0.09) 32%, rgba(255, 255, 255, 0) 62%)",
+                  "linear-gradient(305deg, rgba(99, 102, 241, 0.1) 0%, rgba(255, 255, 255, 0) 48%)",
+                  "linear-gradient(180deg, #fdfcff 0%, #f4effb 42%, #f8f5fc 78%, #faf8ff 100%)",
+                ].join(", "),
+              }}
+            />
 
-              <HeroMessageSwitcher />
+            <div className="grid w-full grid-cols-1 lg:min-h-[680px] lg:grid-cols-[48fr_52fr]">
+              <div className={`relative z-10 flex items-center ${HERO_TEXT_PAD}`}>
+                <div className="w-full max-w-[720px]">
+                  <div className="inline-flex items-center rounded-full border border-slate-200 bg-white/80 px-4 py-1.5 text-sm font-semibold text-slate-700 shadow-sm backdrop-blur">
+                    AI • Operations Research • Industrial Engineering
+                  </div>
 
-              {/* Editorial credibility — no card; light typography + left accent */}
-              <div className="mt-10 border-t border-slate-200/80 pt-8 lg:mt-12 lg:pt-10">
-                <div className="border-l-2 border-blue-600/35 pl-5 sm:pl-6">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500">
-                    Why AIORIE
-                  </p>
-                  <h2 className="mt-2 max-w-xl text-xl font-semibold tracking-tight text-slate-950 sm:text-[1.35rem] sm:leading-snug">
-                    Built on Practical Manufacturing, Planning, and ERP Experience
-                  </h2>
-                  <p className="mt-4 max-w-xl text-sm leading-7 text-slate-600">
-                    AIORIE is shaped by a practical understanding of manufacturing operations, planning,
-                    enterprise systems, and implementation reality. The focus is not only on what systems
-                    can do in theory, but on how planning, scheduling, and decision making actually work in
-                    live operational environments.
-                  </p>
-                  <div className="mt-5 max-w-xl divide-y divide-slate-200/90 border-t border-slate-200/90">
-                    {[
-                      "Engineering-grounded understanding of manufacturing environments",
-                      "Practical planning and scheduling perspective",
-                      "Long-term ERP and enterprise systems experience",
-                      "Delivery-focused thinking shaped by real implementation contexts",
-                    ].map((line) => (
-                      <p
-                        key={line}
-                        className="py-2.5 text-[13px] leading-snug text-slate-600 first:pt-0 last:pb-0"
-                      >
-                        {line}
+                  <HeroMessageSwitcher />
+
+                  {/* Editorial credibility — no card; light typography + left accent */}
+                  <div className="mt-10 border-t border-slate-200/80 pt-8 lg:mt-12 lg:pt-10">
+                    <div className="border-l-2 border-blue-600/35 pl-5 sm:pl-6">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500">
+                        Why AIORIE
                       </p>
-                    ))}
+                      <h2 className="mt-2 max-w-xl text-xl font-semibold tracking-tight text-slate-950 sm:text-[1.35rem] sm:leading-snug">
+                        Built on Practical Manufacturing, Planning, and ERP Experience
+                      </h2>
+                      <p className="mt-4 max-w-xl text-sm leading-7 text-slate-600">
+                        AIORIE is shaped by a practical understanding of manufacturing operations, planning,
+                        enterprise systems, and implementation reality. The focus is not only on what systems
+                        can do in theory, but on how planning, scheduling, and decision making actually work in
+                        live operational environments.
+                      </p>
+                      <div className="mt-5 max-w-xl divide-y divide-slate-200/90 border-t border-slate-200/90">
+                        {[
+                          "Engineering-grounded understanding of manufacturing environments",
+                          "Practical planning and scheduling perspective",
+                          "Long-term ERP and enterprise systems experience",
+                          "Delivery-focused thinking shaped by real implementation contexts",
+                        ].map((line) => (
+                          <p
+                            key={line}
+                            className="py-2.5 text-[13px] leading-snug text-slate-600 first:pt-0 last:pb-0"
+                          >
+                            {line}
+                          </p>
+                        ))}
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
+
+              <div className="relative min-h-[280px] w-full sm:min-h-[360px] lg:min-h-full">
+                <HeroSlideImage />
+              </div>
             </div>
+          </section>
 
-            <div className="relative z-10 flex min-w-0 max-w-full flex-col gap-5">
-              <HeroSlideImage />
-
+          {/* Cognitum + partners: full-width band, controlled inner width */}
+          <section className="w-full border-t border-slate-200/80 bg-white py-10 lg:py-12">
+            <div className={`${CONTENT_SHELL} flex flex-col gap-8`}>
               <CognitumPreview />
               <PartnerEcosystemStrip />
             </div>
-          </div>
+          </section>
         </HeroSlideProvider>
-        </section>
 
         <section
           id="services"
-          className="border-y border-slate-200 bg-slate-50/80 py-16 lg:py-20"
+          className="w-full border-y border-slate-200 bg-slate-50/80 py-16 lg:py-20"
         >
-          <div className={PAGE_SHELL}>
+          <div className={CONTENT_SHELL}>
             <div className="max-w-3xl">
               <div className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-700">
                 Services
@@ -213,8 +219,8 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="industries" className="py-16 lg:py-20">
-          <div className={PAGE_SHELL}>
+        <section id="industries" className="w-full py-16 lg:py-20">
+          <div className={CONTENT_SHELL}>
             <div className="max-w-3xl">
               <div className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-700">
                 Industries
@@ -237,8 +243,8 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="cognitum-aps" className="bg-slate-950 py-16 text-white lg:py-20">
-          <div className={`${PAGE_SHELL} grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:gap-10`}>
+        <section id="cognitum-aps" className="w-full bg-slate-950 py-16 text-white lg:py-20">
+          <div className={`${CONTENT_SHELL} grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:gap-10`}>
             <div className="min-w-0 max-w-full">
               <div className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-300">
                 Interactive Finite Optimization Platform
@@ -298,8 +304,8 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="about" className="py-16 lg:py-20">
-          <div className={`${PAGE_SHELL} grid gap-8 lg:grid-cols-2 lg:gap-10`}>
+        <section id="about" className="w-full py-16 lg:py-20">
+          <div className={`${CONTENT_SHELL} grid gap-8 lg:grid-cols-2 lg:gap-10`}>
             <div className="min-w-0 max-w-full">
               <div className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-700">
                 About AIORIE
@@ -322,8 +328,8 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="contact" className="border-t border-slate-200 bg-blue-600 py-16 text-white lg:py-20">
-          <div className={PAGE_SHELL}>
+        <section id="contact" className="w-full border-t border-slate-200 bg-blue-600 py-16 text-white lg:py-20">
+          <div className={CONTENT_SHELL}>
             <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-end lg:gap-10">
               <div className="min-w-0 max-w-full">
                 <div className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-100">
@@ -365,8 +371,8 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="w-full max-w-full border-t border-slate-200 bg-white">
-        <div className={`${PAGE_SHELL} flex flex-col gap-4 py-6 lg:flex-row lg:items-center lg:justify-between lg:py-8`}>
+      <footer className="w-full border-t border-slate-200 bg-white">
+        <div className={`${CONTENT_SHELL} flex flex-col gap-4 py-6 lg:flex-row lg:items-center lg:justify-between lg:py-8`}>
           <p className="max-w-3xl text-xs leading-relaxed text-slate-500">
             © 2026 AIORIE Pty Ltd · ABN 47 694 210 056 · All rights reserved
           </p>
