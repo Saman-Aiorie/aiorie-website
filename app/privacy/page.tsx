@@ -8,7 +8,10 @@ export const metadata: Metadata = {
     "How AIORIE collects, uses, and protects personal information in connection with consulting and software services.",
 };
 
-const nav = ["Services", "Industries", "Cognitum APS", "About", "Contact"];
+const nav = ["Services", "Industries", "AIORIE Labs", "About", "Contact"];
+
+const navHref = (item: string) =>
+  item === "AIORIE Labs" ? "/#cognitum-aps" : `/#${item.toLowerCase().replace(/\s+/g, "-")}`;
 
 export default function PrivacyPage() {
   return (
@@ -36,7 +39,7 @@ export default function PrivacyPage() {
             {nav.map((item) => (
               <a
                 key={item}
-                href={`/#${item.toLowerCase().replace(/\s+/g, "-")}`}
+                href={navHref(item)}
                 className="rounded-full px-3 py-2 text-sm font-medium text-slate-700 transition-all duration-200 ease-out hover:-translate-y-px hover:bg-[rgba(37,99,235,0.12)] hover:text-slate-900 hover:shadow-[0_4px_14px_-4px_rgba(37,99,235,0.2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/35 focus-visible:ring-offset-2"
               >
                 {item}
