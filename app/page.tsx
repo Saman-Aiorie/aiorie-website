@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { CognitumPreview } from "@/components/CognitumPreview";
 import { CALENDLY_URL, mailtoHref } from "@/components/contact-links";
 import { HeroMessageSwitcher } from "@/components/HeroMessageSwitcher";
 import { HeroSlideImage } from "@/components/HeroSlideImage";
@@ -125,7 +124,6 @@ export default function Home() {
             <div className="relative z-10 flex min-w-0 max-w-full flex-col gap-5">
               <HeroSlideImage />
 
-              <CognitumPreview />
               <PartnerEcosystemStrip />
             </div>
           </div>
@@ -306,7 +304,8 @@ export default function Home() {
                   Ready to improve your manufacturing planning capability?
                 </h2>
                 <p className="mt-4 max-w-2xl text-lg leading-8 text-blue-50">
-                  Talk to AIORIE about IFS consulting, planning and scheduling improvement, optimization-led solution design, and Cognitum APS.
+                  Talk to AIORIE about IFS consulting, manufacturing planning and scheduling improvement,
+                  optimization-led solution design, and enterprise systems advisory.
                 </p>
 
                 <address className="mt-7 max-w-md not-italic text-sm leading-7 text-blue-100">
@@ -327,7 +326,7 @@ export default function Home() {
                   Free Session
                 </a>
                 <a
-                  href={mailtoHref("Cognitum APS Enquiry")}
+                  href={mailtoHref("AIORIE Consultation Enquiry")}
                   className="rounded-xl border border-blue-300 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-500"
                 >
                   Contact Us
