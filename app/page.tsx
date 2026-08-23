@@ -6,6 +6,7 @@ import { HeroMessageSwitcher } from "@/components/HeroMessageSwitcher";
 import { HeroSlideImage } from "@/components/HeroSlideImage";
 import { HeroSlideProvider } from "@/components/hero-slide-context";
 import { PartnerEcosystemStrip } from "@/components/PartnerEcosystemStrip";
+import { SiteHeader } from "@/components/SiteHeader";
 
 /** Override with NEXT_PUBLIC_CALENDLY_URL in `.env.local` if the booking link changes. */
 const DEFAULT_CALENDLY_URL = "https://calendly.com/saman-aiorie/30min";
@@ -60,56 +61,12 @@ export default function Home() {
     "Solutions grounded in real operational constraints",
   ];
 
-  const nav = ["Services", "Industries", "AIORIE Labs", "About", "Contact"];
-
-  const navHref = (item: string) =>
-    item === "AIORIE Labs" ? "#cognitum-aps" : `#${item.toLowerCase().replace(/\s+/g, "-")}`;
-
   /** Wider enterprise shell (SAP-style) — header + homepage sections share the same horizontal rhythm. */
   const PAGE_SHELL = "mx-auto w-full min-w-0 max-w-[1440px] px-6 lg:px-10 xl:px-16";
 
   return (
     <div className="min-h-screen w-full max-w-full overflow-x-hidden bg-white text-slate-900">
-      <header className="sticky top-0 z-50 w-full max-w-full border-b border-slate-200/80 bg-white/90 backdrop-blur">
-        <div className={`${PAGE_SHELL} flex items-center justify-between gap-2 py-4 sm:gap-4`}>
-          <Link
-            href="/"
-            className="flex min-w-0 max-w-full flex-1 flex-col gap-1 sm:flex-row sm:items-center sm:gap-3"
-          >
-            <Image
-              src="/AIORIE.jpeg"
-              alt="AIORIE"
-              width={384}
-              height={256}
-              className="h-8 w-auto max-w-[min(100%,7.5rem)] object-contain object-left sm:h-9 sm:max-w-[min(100%,12rem)] md:max-w-[13.5rem]"
-              priority
-              sizes="(max-width: 640px) 120px, 216px"
-            />
-            <span className="max-w-full break-words text-[11px] leading-snug text-slate-500 sm:max-w-[11rem] sm:border-l sm:border-slate-200 sm:pl-3 md:max-w-none">
-              Manufacturing Systems & Optimization
-            </span>
-          </Link>
-
-          <nav className="hidden min-w-0 items-center gap-8 md:flex">
-            {nav.map((item) => (
-              <a
-                key={item}
-                href={navHref(item)}
-                className="rounded-full px-3 py-2 text-sm font-medium text-slate-700 transition-all duration-200 ease-out hover:-translate-y-px hover:bg-[rgba(37,99,235,0.12)] hover:text-slate-900 hover:shadow-[0_4px_14px_-4px_rgba(37,99,235,0.2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/35 focus-visible:ring-offset-2"
-              >
-                {item}
-              </a>
-            ))}
-          </nav>
-
-          <a
-            href="#contact"
-            className="shrink-0 rounded-xl bg-blue-600 px-2.5 py-2 text-[11px] font-semibold leading-tight text-white shadow-[0_6px_18px_rgba(37,99,235,0.25)] transition-all duration-300 ease-out hover:-translate-y-px hover:bg-blue-700 hover:shadow-[0_10px_26px_rgba(37,99,235,0.38)] sm:px-4 sm:py-2.5 sm:text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/45 focus-visible:ring-offset-2"
-          >
-            Request Consultation
-          </a>
-        </div>
-      </header>
+      <SiteHeader home shellClassName={PAGE_SHELL} />
 
       <main className="w-full min-w-0 max-w-full">
         <section className="relative w-full max-w-full overflow-hidden">
@@ -297,6 +254,55 @@ export default function Home() {
                   </div>
                 ))}
               </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="cognitum-qman" className="border-t border-slate-200 bg-slate-50/80 py-16 lg:py-20">
+          <div className={`${PAGE_SHELL} grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-start lg:gap-12`}>
+            <div className="min-w-0 max-w-3xl">
+              <div className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-700">
+                Product Development
+              </div>
+              <div className="mt-3 flex flex-wrap items-center gap-3">
+                <h2 className="text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
+                  Cognitum QMAN
+                </h2>
+                <span className="rounded-full border border-slate-300 bg-white px-3 py-1 text-xs font-semibold uppercase tracking-wide text-slate-600">
+                  In Development
+                </span>
+              </div>
+              <p className="mt-4 text-lg leading-8 text-slate-600">
+                Cognitum QMAN is AIORIE’s emerging manufacturing quality-management solution direction,
+                focused on making quality requirements, inspections, non-conformances, corrective actions and
+                traceability easier to manage within connected manufacturing operations.
+              </p>
+              <a
+                href="#contact"
+                className="mt-7 inline-flex rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white shadow-[0_6px_18px_rgba(37,99,235,0.25)] transition hover:-translate-y-px hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/45 focus-visible:ring-offset-2"
+              >
+                Discuss Cognitum QMAN
+              </a>
+            </div>
+
+            <div className="min-w-0">
+              <ul className="grid gap-3 sm:grid-cols-2">
+                {[
+                  "Inspection and quality-control workflows",
+                  "Non-conformance management",
+                  "Corrective and preventive action support",
+                  "Manufacturing traceability",
+                  "Quality checkpoints and alerts",
+                  "ERP-connected quality processes",
+                ].map((theme) => (
+                  <li
+                    key={theme}
+                    className="rounded-2xl border border-slate-200 bg-white px-4 py-3.5 text-sm leading-6 text-slate-700"
+                  >
+                    {theme}
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </section>

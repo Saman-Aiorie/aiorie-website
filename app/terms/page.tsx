@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
+
+import { SiteHeader } from "@/components/SiteHeader";
 
 export const metadata: Metadata = {
   title: "Terms of Use | AIORIE",
@@ -8,53 +9,12 @@ export const metadata: Metadata = {
     "Terms governing use of the AIORIE website and informational content for consulting and software visitors.",
 };
 
-const nav = ["Services", "Industries", "AIORIE Labs", "About", "Contact"];
-
-const navHref = (item: string) =>
-  item === "AIORIE Labs" ? "/#cognitum-aps" : `/#${item.toLowerCase().replace(/\s+/g, "-")}`;
+const PAGE_SHELL = "mx-auto min-w-0 max-w-7xl px-4 sm:px-6 lg:px-8";
 
 export default function TermsPage() {
   return (
     <div className="min-h-screen w-full max-w-full overflow-x-hidden bg-white text-slate-900">
-      <header className="sticky top-0 z-50 w-full max-w-full border-b border-slate-200/80 bg-white/90 backdrop-blur">
-        <div className="mx-auto flex min-w-0 max-w-7xl items-center justify-between gap-2 px-4 py-4 sm:gap-4 sm:px-6 lg:px-8">
-          <Link
-            href="/"
-            className="flex min-w-0 max-w-full flex-1 flex-col gap-1 sm:flex-row sm:items-center sm:gap-3"
-          >
-            <Image
-              src="/AIORIE.jpeg"
-              alt="AIORIE"
-              width={384}
-              height={256}
-              className="h-8 w-auto max-w-[min(100%,7.5rem)] object-contain object-left sm:h-9 sm:max-w-[min(100%,12rem)] md:max-w-[13.5rem]"
-              sizes="(max-width: 640px) 120px, 216px"
-            />
-            <span className="max-w-full break-words text-[11px] leading-snug text-slate-500 sm:max-w-[11rem] sm:border-l sm:border-slate-200 sm:pl-3 md:max-w-none">
-              Manufacturing Systems & Optimization
-            </span>
-          </Link>
-
-          <nav className="hidden min-w-0 items-center gap-8 md:flex">
-            {nav.map((item) => (
-              <a
-                key={item}
-                href={navHref(item)}
-                className="rounded-full px-3 py-2 text-sm font-medium text-slate-700 transition-all duration-200 ease-out hover:-translate-y-px hover:bg-[rgba(37,99,235,0.12)] hover:text-slate-900 hover:shadow-[0_4px_14px_-4px_rgba(37,99,235,0.2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/35 focus-visible:ring-offset-2"
-              >
-                {item}
-              </a>
-            ))}
-          </nav>
-
-          <a
-            href="/#contact"
-            className="shrink-0 rounded-xl bg-blue-600 px-2.5 py-2 text-[11px] font-semibold leading-tight text-white shadow-[0_6px_18px_rgba(37,99,235,0.25)] transition-all duration-300 ease-out hover:-translate-y-px hover:bg-blue-700 hover:shadow-[0_10px_26px_rgba(37,99,235,0.38)] sm:px-4 sm:py-2.5 sm:text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/45 focus-visible:ring-offset-2"
-          >
-            Request Consultation
-          </a>
-        </div>
-      </header>
+      <SiteHeader shellClassName={PAGE_SHELL} />
 
       <main className="min-w-0 w-full max-w-full flex-1">
         <div className="mx-auto min-w-0 max-w-3xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
