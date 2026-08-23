@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { SiteHeader } from "@/components/SiteHeader";
+import { LEGAL_PAGE_SHELL } from "@/components/site-constants";
 
 export const metadata: Metadata = {
   title: "Privacy Policy | AIORIE",
@@ -9,12 +10,10 @@ export const metadata: Metadata = {
     "How AIORIE collects, uses, and protects personal information in connection with consulting and software services.",
 };
 
-const PAGE_SHELL = "mx-auto min-w-0 max-w-7xl px-4 sm:px-6 lg:px-8";
-
 export default function PrivacyPage() {
   return (
     <div className="min-h-screen w-full max-w-full overflow-x-hidden bg-white text-slate-900">
-      <SiteHeader shellClassName={PAGE_SHELL} />
+      <SiteHeader shellClassName={LEGAL_PAGE_SHELL} />
 
       <main className="min-w-0 w-full max-w-full flex-1">
         <div className="mx-auto min-w-0 max-w-3xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">

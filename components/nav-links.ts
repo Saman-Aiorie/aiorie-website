@@ -24,13 +24,14 @@ export const NAV_ITEMS: NavItem[] = [
   { label: "Contact", segment: "contact" },
 ];
 
-export const LABS_SUBMENU = [
-  { label: "Cognitum APS", segment: "cognitum-aps" },
-  { label: "Cognitum QMAN", segment: "cognitum-qman" },
-] as const;
+/** Homepage section anchors (Services, About, Contact, etc.). */
+export function sectionHref(segment: string, onHomepage: boolean) {
+  return onHomepage ? `#${segment}` : `/#${segment}`;
+}
 
-export function navHref(segment: string, home: boolean) {
-  return home ? `#${segment}` : `/#${segment}`;
+/** Dedicated AIORIE Labs product pages — always route-based, never hash links. */
+export function productHref(segment: string) {
+  return `/${segment}`;
 }
 
 export function isLabsSubmenu(

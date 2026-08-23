@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 
-import { NAV_ITEMS, isLabsSubmenu, navHref, type NavItem } from "@/components/nav-links";
+import { NAV_ITEMS, isLabsSubmenu, productHref, sectionHref, type NavItem } from "@/components/nav-links";
 
 const NAV_LINK_CLASS =
   "rounded-full px-3 py-2 text-sm font-medium text-slate-700 transition-all duration-200 ease-out hover:-translate-y-px hover:bg-[rgba(37,99,235,0.12)] hover:text-slate-900 hover:shadow-[0_4px_14px_-4px_rgba(37,99,235,0.2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/35 focus-visible:ring-offset-2";
@@ -33,11 +33,12 @@ function ChevronDown({ open }: { open: boolean }) {
 }
 
 type SiteHeaderProps = {
-  home?: boolean;
+  /** When true, section links (Services, About, etc.) use in-page anchors. */
+  onHomepage?: boolean;
   shellClassName: string;
 };
 
-export function SiteHeader({ home = false, shellClassName }: SiteHeaderProps) {
+export function SiteHeader({ onHomepage = false, shellClassName }: SiteHeaderProps) {
   const [labsOpen, setLabsOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileLabsOpen, setMobileLabsOpen] = useState(false);
@@ -47,7 +48,7 @@ export function SiteHeader({ home = false, shellClassName }: SiteHeaderProps) {
   const labsMenuId = useId();
   const mobileMenuId = useId();
 
-  const contactHref = navHref("contact", home);
+  const contactHref = sectionHref("contact", onHomepage);
 
   const closeLabs = useCallback(() => setLabsOpen(false), []);
   const closeMobile = useCallback(() => {
@@ -164,7 +165,7 @@ export function SiteHeader({ home = false, shellClassName }: SiteHeaderProps) {
                 <a
                   key={link.segment}
                   role="menuitem"
-                  href={navHref(link.segment, home)}
+                  href={productHref(link.segment)}
                   className={SUBMENU_LINK_CLASS}
                   onClick={closeLabs}
                 >
@@ -178,7 +179,7 @@ export function SiteHeader({ home = false, shellClassName }: SiteHeaderProps) {
     }
 
     return (
-      <a key={item.label} href={navHref(item.segment, home)} className={NAV_LINK_CLASS}>
+      <a key={item.label} href={sectionHref(item.segment, onHomepage)} className={NAV_LINK_CLASS}>
         {item.label}
       </a>
     );
@@ -267,7 +268,7 @@ export function SiteHeader({ home = false, shellClassName }: SiteHeaderProps) {
                         {item.submenu.map((link) => (
                           <a
                             key={link.segment}
-                            href={navHref(link.segment, home)}
+                            href={productHref(link.segment)}
                             className="rounded-lg px-3 py-3 text-sm font-medium text-slate-600 transition hover:bg-slate-50 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/35"
                             onClick={closeMobile}
                           >
@@ -283,7 +284,7 @@ export function SiteHeader({ home = false, shellClassName }: SiteHeaderProps) {
               return (
                 <a
                   key={item.label}
-                  href={navHref(item.segment, home)}
+                  href={sectionHref(item.segment, onHomepage)}
                   className="rounded-lg px-3 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/35"
                   onClick={closeMobile}
                 >
