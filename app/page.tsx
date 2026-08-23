@@ -65,7 +65,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen w-full max-w-full overflow-x-hidden bg-white text-slate-900">
-      <header className="sticky top-0 z-50 w-full max-w-full border-b border-slate-200/80 bg-white/90 backdrop-blur">
+      <header className="sticky top-0 z-50 w-full border-b border-slate-200/80 bg-white/90 backdrop-blur">
         <div className={`${CONTENT_SHELL} flex items-center justify-between gap-2 py-4 sm:gap-4`}>
           <Link
             href="/"

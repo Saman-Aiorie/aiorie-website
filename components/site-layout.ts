@@ -1,11 +1,14 @@
 /**
  * Shared layout tokens: full-width surfaces vs controlled inner content.
- * Outer sections should be `w-full` (backgrounds edge-to-edge).
- * Inner content uses CONTENT_SHELL so header / body / footer align.
+ *
+ * Outer sections stay `w-full` (backgrounds edge-to-edge).
+ * Inner shells use modest edge padding only — no max-width centering,
+ * so wide desktops do not grow huge empty side gutters.
+ * Constrain readable prose with max-w-3xl / max-w-[720px] on the text itself.
  */
 export const CONTENT_SHELL =
-  "mx-auto w-full min-w-0 max-w-[1600px] px-6 sm:px-8 lg:px-12 2xl:px-16";
+  "w-full min-w-0 px-5 sm:px-8 lg:px-10 xl:px-12";
 
-/** Left-column padding that aligns with CONTENT_SHELL on ultra-wide viewports. */
+/** Hero text column: same horizontal inset as CONTENT_SHELL so logo ↔ headline align. */
 export const HERO_TEXT_PAD =
-  "px-6 py-12 sm:px-8 sm:py-14 lg:px-12 lg:py-16 xl:px-16 2xl:pl-[max(4rem,calc((100vw-1600px)/2))] 2xl:pr-12";
+  "px-5 py-12 sm:px-8 sm:py-14 lg:px-10 lg:py-16 xl:px-12";
