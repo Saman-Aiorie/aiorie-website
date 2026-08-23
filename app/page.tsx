@@ -161,16 +161,16 @@ export default function Home() {
               </div>
 
               <h1 className="mt-6 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl lg:text-[2.35rem] lg:leading-tight">
-                IFS.ai Manufacturing Consulting for Planning, Scheduling & Optimization
+                IFS.ai ERP Consulting for Manufacturing Scheduling and Optimization (MSO)
               </h1>
               <p className="mt-4 max-w-xl text-lg leading-8 text-slate-700">
-                AIORIE helps manufacturing organisations align IFS.ai ERP with the practical requirements
-                of planning, scheduling and operational execution.
+                Specialist IFS.ai ERP consulting for manufacturing organisations seeking stronger
+                planning, scheduling, and operational performance.
               </p>
               <p className="mt-3 max-w-xl text-base leading-7 text-slate-600">
-                We combine manufacturing knowledge, IFS.ai expertise and optimization-focused thinking to
-                improve system configuration, planning processes, capacity visibility and decision-making
-                across complex manufacturing environments.
+                Practical expertise connects ERP capabilities with real manufacturing requirements,
+                helping improve production visibility, resource utilisation, scheduling decisions, and
+                process efficiency.
               </p>
 
               <div className="mt-8 grid max-w-xl grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
