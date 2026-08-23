@@ -14,10 +14,10 @@ export function HeroSlideImage() {
   const imageTransition = reduceMotion ? { duration: 0 } : IMAGE_TRANSITION;
 
   return (
-    <section className="flex w-full justify-center bg-gray-50 py-20">
-      <div className="w-full max-w-6xl px-6">
+    <section className="w-full bg-gray-50 py-20">
+      <div className="w-full">
         {/* Fixed aspect prevents vertical layout shift when slides use different image dimensions */}
-        <div className="relative aspect-[5/3] w-full overflow-hidden rounded-2xl shadow-xl">
+        <div className="relative aspect-[5/3] w-full overflow-hidden rounded-lg shadow-xl">
           <AnimatePresence mode="wait" initial={false}>
             <motion.img
               key={activeIndex}
