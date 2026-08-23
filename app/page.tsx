@@ -130,91 +130,6 @@ const ENGAGEMENT_STEPS = [
 const sectionEyebrowClass =
   "text-sm font-semibold uppercase tracking-[0.22em] text-blue-700";
 
-const SERVICE_LINK_CARDS = [
-  {
-    title: "IFS.ai Manufacturing Consulting",
-    description:
-      "Practical support for selecting, implementing, upgrading, and improving IFS.ai ERP in manufacturing environments.",
-    href: "#services",
-    accent: "blue" as const,
-  },
-  {
-    title: "Manufacturing Planning & Optimization",
-    description:
-      "Improve production planning, scheduling, operational efficiency, and ERP-supported manufacturing processes.",
-    href: "#contact",
-    accent: "purple" as const,
-  },
-] as const;
-
-function ServiceLinkCard({
-  title,
-  description,
-  href,
-  accent,
-}: (typeof SERVICE_LINK_CARDS)[number]) {
-  const isBlue = accent === "blue";
-
-  return (
-    <a
-      href={href}
-      className={`group flex aspect-square min-h-[17rem] flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition duration-200 ease-out hover:-translate-y-1 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${
-        isBlue
-          ? "border-t-4 border-t-blue-600 hover:border-blue-300 focus-visible:ring-blue-600/40"
-          : "border-t-4 border-t-[#6D28D9] hover:border-[#6D28D9]/40 focus-visible:ring-[#6D28D9]/40"
-      }`}
-    >
-      <div
-        className={`mb-5 flex h-12 w-12 items-center justify-center rounded-xl ${
-          isBlue ? "bg-blue-50 text-blue-600" : "bg-violet-50 text-[#6D28D9]"
-        }`}
-        aria-hidden
-      >
-        {isBlue ? (
-          <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6" stroke="currentColor" strokeWidth="1.75">
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M4 7h16M4 12h10M4 17h16M9 7v10"
-            />
-          </svg>
-        ) : (
-          <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6" stroke="currentColor" strokeWidth="1.75">
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M4 19V5M20 19V9M12 19V3"
-            />
-          </svg>
-        )}
-      </div>
-
-      <h2 className="text-xl font-semibold tracking-tight text-slate-950">{title}</h2>
-      <p className="mt-3 flex-1 text-sm leading-6 text-slate-600">{description}</p>
-
-      <span
-        className={`mt-5 inline-flex items-center gap-1.5 text-sm font-semibold ${
-          isBlue ? "text-blue-700" : "text-[#6D28D9]"
-        }`}
-      >
-        Explore services
-        <svg
-          viewBox="0 0 20 20"
-          fill="currentColor"
-          className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
-          aria-hidden
-        >
-          <path
-            fillRule="evenodd"
-            d="M3 10a.75.75 0 0 1 .75-.75h10.638L10.23 5.29a.75.75 0 1 1 1.04-1.08l5.5 5.25a.75.75 0 0 1 0 1.08l-5.5 5.25a.75.75 0 1 1-1.04-1.08l4.158-3.96H3.75A.75.75 0 0 1 3 10Z"
-            clipRule="evenodd"
-          />
-        </svg>
-      </span>
-    </a>
-  );
-}
-
 export default function Home() {
   return (
     <div className="min-h-screen w-full max-w-full overflow-x-hidden bg-white text-slate-900">
@@ -258,18 +173,66 @@ export default function Home() {
                 across complex manufacturing environments.
               </p>
 
-              <div className="mt-8 flex flex-wrap gap-3">
+              <div className="mt-8 grid max-w-xl grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
                 <a
                   href="#contact"
-                  className="inline-flex rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white shadow-[0_6px_18px_rgba(37,99,235,0.25)] transition hover:-translate-y-px hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/45 focus-visible:ring-offset-2"
+                  className="group flex aspect-square min-h-[12.5rem] flex-col justify-between rounded-2xl border border-slate-200 border-t-4 border-t-[#6D28D9] bg-white p-5 shadow-sm transition duration-200 ease-out hover:-translate-y-1 hover:border-[#6D28D9]/45 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6D28D9]/40 focus-visible:ring-offset-2"
                 >
-                  Discuss Your IFS.ai Requirements
+                  <div
+                    className="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-50 text-[#6D28D9]"
+                    aria-hidden
+                  >
+                    <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" stroke="currentColor" strokeWidth="1.75">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M4 19V5M20 19V9M12 19V3" />
+                    </svg>
+                  </div>
+                  <span className="text-base font-semibold leading-snug tracking-tight text-slate-950">
+                    Discuss Your IFS.ai Requirements
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#6D28D9]">
+                    <svg
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
+                      aria-hidden
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M3 10a.75.75 0 0 1 .75-.75h10.638L10.23 5.29a.75.75 0 1 1 1.04-1.08l5.5 5.25a.75.75 0 0 1 0 1.08l-5.5 5.25a.75.75 0 1 1-1.04-1.08l4.158-3.96H3.75A.75.75 0 0 1 3 10Z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </span>
                 </a>
                 <a
                   href="#services"
-                  className="inline-flex rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-800 transition hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/35 focus-visible:ring-offset-2"
+                  className="group flex aspect-square min-h-[12.5rem] flex-col justify-between rounded-2xl border border-slate-200 border-t-4 border-t-blue-600 bg-white p-5 shadow-sm transition duration-200 ease-out hover:-translate-y-1 hover:border-blue-300 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/40 focus-visible:ring-offset-2"
                 >
-                  Explore Consulting Services
+                  <div
+                    className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600"
+                    aria-hidden
+                  >
+                    <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" stroke="currentColor" strokeWidth="1.75">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M4 7h16M4 12h10M4 17h16M9 7v10" />
+                    </svg>
+                  </div>
+                  <span className="text-base font-semibold leading-snug tracking-tight text-slate-950">
+                    Explore Consulting Services
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-700">
+                    <svg
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
+                      aria-hidden
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M3 10a.75.75 0 0 1 .75-.75h10.638L10.23 5.29a.75.75 0 1 1 1.04-1.08l5.5 5.25a.75.75 0 0 1 0 1.08l-5.5 5.25a.75.75 0 1 1-1.04-1.08l4.158-3.96H3.75A.75.75 0 0 1 3 10Z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </span>
                 </a>
               </div>
             </div>
@@ -288,17 +251,6 @@ export default function Home() {
                 </div>
               </div>
               <PartnerEcosystemStrip />
-            </div>
-          </div>
-        </section>
-
-        {/* Service link cards */}
-        <section className="border-t border-slate-200/80 bg-white py-12 lg:py-14" aria-label="Core consulting services">
-          <div className={PAGE_SHELL}>
-            <div className="grid gap-5 sm:grid-cols-2 sm:gap-6">
-              {SERVICE_LINK_CARDS.map((card) => (
-                <ServiceLinkCard key={card.title} {...card} />
-              ))}
             </div>
           </div>
         </section>
