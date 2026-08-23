@@ -9,13 +9,6 @@ export const heroSlides = [
     imageAlt: "Manufacturing consultancy and ERP selection",
   },
   {
-    title: "Modern Scheduling with Cognitum APS",
-    description: "A browser-based APS workbench designed for real-world manufacturing environments.",
-    body: "Visualize constraints, simulate scenarios, and optimize production schedules with speed and clarity.",
-    imageSrc: "/aps.png",
-    imageAlt: "Cognitum APS advanced planning and scheduling",
-  },
-  {
     title: "IFS Manufacturing Optimization Expertise",
     description: "Deep expertise in IFS planning, scheduling, and manufacturing execution.",
     body: "From MRP to finite scheduling and optimization, we help you unlock real performance from your ERP.",
