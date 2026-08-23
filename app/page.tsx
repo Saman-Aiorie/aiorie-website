@@ -62,10 +62,13 @@ export default function Home() {
 
   const nav = ["Services", "Industries", "Cognitum APS", "About", "Contact"];
 
+  /** Wider enterprise shell (SAP-style) — header + homepage sections share the same horizontal rhythm. */
+  const PAGE_SHELL = "mx-auto w-full min-w-0 max-w-[1440px] px-6 lg:px-10 xl:px-16";
+
   return (
     <div className="min-h-screen w-full max-w-full overflow-x-hidden bg-white text-slate-900">
       <header className="sticky top-0 z-50 w-full max-w-full border-b border-slate-200/80 bg-white/90 backdrop-blur">
-        <div className="mx-auto flex min-w-0 max-w-7xl items-center justify-between gap-2 px-4 py-4 sm:gap-4 sm:px-6 lg:px-8">
+        <div className={`${PAGE_SHELL} flex items-center justify-between gap-2 py-4 sm:gap-4`}>
           <Link
             href="/"
             className="flex min-w-0 max-w-full flex-1 flex-col gap-1 sm:flex-row sm:items-center sm:gap-3"
@@ -123,7 +126,7 @@ export default function Home() {
         />
         
         <HeroSlideProvider>
-        <div className="mx-auto grid min-w-0 max-w-7xl gap-10 px-4 pb-16 pt-10 sm:px-6 lg:grid-cols-2 lg:gap-12 lg:px-8 lg:pb-20 lg:pt-12">
+        <div className={`${PAGE_SHELL} grid gap-10 pb-16 pt-10 lg:grid-cols-2 lg:gap-12 lg:pb-20 lg:pt-12`}>
             <div className="relative z-10 min-w-0 max-w-full">
             <div className="inline-flex items-center rounded-full border border-slate-200 bg-white/80 backdrop-blur px-4 py-1.5 text-sm font-semibold text-slate-700 shadow-sm">
   AI • Operations Research • Industrial Engineering
@@ -179,7 +182,7 @@ export default function Home() {
           id="services"
           className="border-y border-slate-200 bg-slate-50/80 py-16 lg:py-20"
         >
-          <div className="mx-auto min-w-0 max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className={PAGE_SHELL}>
             <div className="max-w-3xl">
               <div className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-700">
                 Services
@@ -211,7 +214,7 @@ export default function Home() {
         </section>
 
         <section id="industries" className="py-16 lg:py-20">
-          <div className="mx-auto min-w-0 max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className={PAGE_SHELL}>
             <div className="max-w-3xl">
               <div className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-700">
                 Industries
@@ -235,7 +238,7 @@ export default function Home() {
         </section>
 
         <section id="cognitum-aps" className="bg-slate-950 py-16 text-white lg:py-20">
-          <div className="mx-auto grid min-w-0 max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:gap-10 lg:px-8">
+          <div className={`${PAGE_SHELL} grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:gap-10`}>
             <div className="min-w-0 max-w-full">
               <div className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-300">
                 Interactive Finite Optimization Platform
@@ -296,7 +299,7 @@ export default function Home() {
         </section>
 
         <section id="about" className="py-16 lg:py-20">
-          <div className="mx-auto grid min-w-0 max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-2 lg:gap-10 lg:px-8">
+          <div className={`${PAGE_SHELL} grid gap-8 lg:grid-cols-2 lg:gap-10`}>
             <div className="min-w-0 max-w-full">
               <div className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-700">
                 About AIORIE
@@ -320,7 +323,7 @@ export default function Home() {
         </section>
 
         <section id="contact" className="border-t border-slate-200 bg-blue-600 py-16 text-white lg:py-20">
-          <div className="mx-auto min-w-0 max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className={PAGE_SHELL}>
             <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-end lg:gap-10">
               <div className="min-w-0 max-w-full">
                 <div className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-100">
@@ -363,7 +366,7 @@ export default function Home() {
       </main>
 
       <footer className="w-full max-w-full border-t border-slate-200 bg-white">
-        <div className="mx-auto flex min-w-0 max-w-7xl flex-col gap-4 px-4 py-6 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8 lg:py-8">
+        <div className={`${PAGE_SHELL} flex flex-col gap-4 py-6 lg:flex-row lg:items-center lg:justify-between lg:py-8`}>
           <p className="max-w-3xl text-xs leading-relaxed text-slate-500">
             © 2026 AIORIE Pty Ltd · ABN 47 694 210 056 · All rights reserved
           </p>
