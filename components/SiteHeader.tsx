@@ -190,30 +190,31 @@ export function SiteHeader({ onHomepage = false, shellClassName }: SiteHeaderPro
       <div className={`${shellClassName} flex items-center justify-between gap-2 py-4 sm:gap-4`}>
         <Link
           href="/"
-          className="flex min-w-0 max-w-full flex-1 flex-col gap-1 sm:flex-row sm:items-center sm:gap-3"
+          className="flex min-w-0 max-w-full flex-1 flex-col gap-1 sm:flex-row sm:items-center sm:gap-3 xl:flex-none xl:shrink-0"
         >
           <Image
-            src="/AIORIE.jpeg"
+            src="/aiorie-logo-tm.png"
             alt="AIORIE"
-            width={384}
-            height={256}
-            className="h-8 w-auto max-w-[min(100%,7.5rem)] object-contain object-left sm:h-9 sm:max-w-[min(100%,12rem)] md:max-w-[13.5rem]"
+            width={466}
+            height={202}
+            className="h-auto w-[7.25rem] max-w-none shrink-0 object-contain object-left lg:w-[8.75rem]"
             priority
-            sizes="(max-width: 640px) 120px, 216px"
+            unoptimized
+            sizes="(max-width: 1023px) 116px, 140px"
           />
           <span className="max-w-full break-words text-[11px] leading-snug text-slate-500 sm:max-w-[11rem] sm:border-l sm:border-slate-200 sm:pl-3 md:max-w-none">
-            Manufacturing Systems & Optimization
+            IFS.ai Manufacturing Specialists
           </span>
         </Link>
 
-        <nav className="hidden min-w-0 items-center gap-6 lg:gap-8 md:flex" aria-label="Main">
+        <nav className="hidden min-w-0 items-center gap-6 xl:flex xl:gap-8" aria-label="Main">
           {NAV_ITEMS.map(renderDesktopItem)}
         </nav>
 
         <div className="flex shrink-0 items-center gap-2">
           <button
             type="button"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 text-slate-700 transition hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/35 md:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 text-slate-700 transition hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/35 xl:hidden"
             aria-expanded={mobileOpen}
             aria-controls={mobileMenuId}
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
@@ -242,7 +243,7 @@ export function SiteHeader({ onHomepage = false, shellClassName }: SiteHeaderPro
         <nav
           id={mobileMenuId}
           aria-label="Main mobile"
-          className="border-t border-slate-200/80 bg-white md:hidden"
+          className="border-t border-slate-200/80 bg-white xl:hidden"
         >
           <div className={`${shellClassName} flex flex-col gap-1 py-3`}>
             {NAV_ITEMS.map((item) => {
