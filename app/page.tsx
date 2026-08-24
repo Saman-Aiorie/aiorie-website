@@ -127,6 +127,98 @@ const ENGAGEMENT_STEPS = [
   },
 ] as const;
 
+const IFS_CAPABILITY_TILES = [
+  {
+    title: "Planning & Optimisation",
+    items: [
+      "Manufacturing Scheduling & Optimisation (MSO)",
+      "Advanced Planning Board (APB)",
+      "Master Scheduling",
+    ],
+    icon: "planning",
+  },
+  {
+    title: "Visual Manufacturing Planning",
+    items: ["Manufacturing Visual Planning", "Visual Capacity Requirements Planning"],
+    icon: "visual",
+  },
+  {
+    title: "Materials & Flow",
+    items: ["Material Requirements Planning (MRP)", "Kanban"],
+    icon: "materials",
+  },
+  {
+    title: "Order & Project Manufacturing",
+    items: ["Project-Based Manufacturing", "Dynamic Order Processing (DOP)"],
+    icon: "order",
+  },
+  {
+    title: "Quality & Shop Floor",
+    items: ["Quality Management", "Shop Floor Reporting"],
+    icon: "quality",
+  },
+  {
+    title: "Cost & Performance",
+    items: ["Product Costing"],
+    icon: "cost",
+  },
+] as const;
+
+const CAPABILITY_TILE_PURPLE = "#6D28D9";
+
+function CapabilityTileIcon({ name }: { name: (typeof IFS_CAPABILITY_TILES)[number]["icon"] }) {
+  const iconClass = "h-5 w-5";
+
+  switch (name) {
+    case "planning":
+      return (
+        <svg viewBox="0 0 24 24" fill="none" className={iconClass} stroke="currentColor" strokeWidth="1.75">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M8 3.5v3M16 3.5v3M4.75 7.5h14.5v12.75H4.75zM5 11h14" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 14h4M7.5 17h2.5M13.5 14h3.5" />
+        </svg>
+      );
+    case "visual":
+      return (
+        <svg viewBox="0 0 24 24" fill="none" className={iconClass} stroke="currentColor" strokeWidth="1.75">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 4.75h5.5v14.5h-5.5zM10.25 4.75h3.5v8.5h-3.5zM16.75 4.75h3.5v11.5h-3.5z" />
+        </svg>
+      );
+    case "materials":
+      return (
+        <svg viewBox="0 0 24 24" fill="none" className={iconClass} stroke="currentColor" strokeWidth="1.75">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M12 3.5 20 8v8l-8 4.5L4 16V8l8-4.5ZM12 12l8-4M12 12v8.5M12 12 4 8"
+          />
+        </svg>
+      );
+    case "order":
+      return (
+        <svg viewBox="0 0 24 24" fill="none" className={iconClass} stroke="currentColor" strokeWidth="1.75">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M8.5 4.5h7v2.5h-7zM6.5 6.25h11v13.25h-11zM9 11h6M9 14.25h6M9 17.5h4" />
+        </svg>
+      );
+    case "quality":
+      return (
+        <svg viewBox="0 0 24 24" fill="none" className={iconClass} stroke="currentColor" strokeWidth="1.75">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M12 3.5 19.25 6.5v5.25c0 4.15-2.95 7.2-7.25 8.75-4.3-1.55-7.25-4.6-7.25-8.75V6.5L12 3.5Z"
+          />
+          <path strokeLinecap="round" strokeLinejoin="round" d="m9 12 2.1 2.1L15.25 10" />
+        </svg>
+      );
+    case "cost":
+      return (
+        <svg viewBox="0 0 24 24" fill="none" className={iconClass} stroke="currentColor" strokeWidth="1.75">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M4 19V10M10 19V5.5M16 19v-7M20.5 19H3.5" />
+        </svg>
+      );
+  }
+}
+
 const sectionEyebrowClass =
   "text-sm font-semibold uppercase tracking-[0.22em] text-blue-700";
 
@@ -153,7 +245,7 @@ export default function Home() {
           />
 
           <div
-            className={`${PAGE_SHELL} grid gap-10 pb-16 pt-10 lg:grid-cols-2 lg:gap-12 lg:pb-20 lg:pt-12`}
+            className={`${PAGE_SHELL} grid items-start gap-10 pb-16 pt-10 xl:grid-cols-2 xl:items-center xl:gap-12 xl:pb-20 xl:pt-12`}
           >
             <div className="relative z-10 min-w-0 max-w-full">
               <div className="inline-flex max-w-full items-center rounded-full border border-slate-200 bg-white/80 px-4 py-1.5 text-sm font-semibold text-slate-700 shadow-sm backdrop-blur">
@@ -171,83 +263,39 @@ export default function Home() {
                 automate routine processes and reduce unnecessary manual interaction.
               </p>
 
-              <div className="mt-8 grid max-w-xl grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
-                <a
-                  href="#contact"
-                  className="group flex aspect-square min-h-[12.5rem] flex-col justify-between rounded-lg bg-blue-600 p-5 text-white shadow-sm transition duration-200 ease-out hover:-translate-y-0.5 hover:bg-blue-700 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/50 focus-visible:ring-offset-2"
-                >
-                  <div
-                    className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/15 text-white"
-                    aria-hidden
+              <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {IFS_CAPABILITY_TILES.map((tile) => (
+                  <article
+                    key={tile.title}
+                    className="flex h-full min-h-[10.5rem] flex-col rounded-lg p-3.5 shadow-sm sm:p-4"
+                    style={{ backgroundColor: CAPABILITY_TILE_PURPLE }}
                   >
-                    <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" stroke="currentColor" strokeWidth="1.75">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M4 7h16M4 12h10M4 17h16M9 7v10" />
-                    </svg>
-                  </div>
-                  <span className="text-base font-semibold leading-snug tracking-tight">
-                    Discuss Your IFS.ai Requirements
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-white/95">
-                    <svg
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
-                      aria-hidden
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M3 10a.75.75 0 0 1 .75-.75h10.638L10.23 5.29a.75.75 0 1 1 1.04-1.08l5.5 5.25a.75.75 0 0 1 0 1.08l-5.5 5.25a.75.75 0 1 1-1.04-1.08l4.158-3.96H3.75A.75.75 0 0 1 3 10Z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </span>
-                </a>
-                <a
-                  href="#services"
-                  className="group flex aspect-square min-h-[12.5rem] flex-col justify-between rounded-lg bg-[#6D28D9] p-5 text-white shadow-sm transition duration-200 ease-out hover:-translate-y-0.5 hover:bg-[#5b21b6] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6D28D9]/50 focus-visible:ring-offset-2"
-                >
-                  <div
-                    className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/15 text-white"
-                    aria-hidden
-                  >
-                    <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" stroke="currentColor" strokeWidth="1.75">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M4 19V5M20 19V9M12 19V3" />
-                    </svg>
-                  </div>
-                  <span className="text-base font-semibold leading-snug tracking-tight">
-                    Explore Consulting Services
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-white/95">
-                    <svg
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
-                      aria-hidden
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M3 10a.75.75 0 0 1 .75-.75h10.638L10.23 5.29a.75.75 0 1 1 1.04-1.08l5.5 5.25a.75.75 0 0 1 0 1.08l-5.5 5.25a.75.75 0 1 1-1.04-1.08l4.158-3.96H3.75A.75.75 0 0 1 3 10Z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </span>
-                </a>
+                    <div className="flex h-8 w-8 items-center justify-center text-white" aria-hidden>
+                      <CapabilityTileIcon name={tile.icon} />
+                    </div>
+                    <p className="mt-3 text-sm font-semibold leading-snug tracking-tight text-white">
+                      {tile.title}
+                    </p>
+                    <ul className="mt-2 flex-1 space-y-1 text-xs leading-5 text-white/80">
+                      {tile.items.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </article>
+                ))}
               </div>
             </div>
 
             <div className="relative z-10 flex min-w-0 max-w-full flex-col gap-5">
-              <div className="w-full bg-gray-50 py-20">
-                <div className="relative aspect-[5/3] w-full overflow-hidden rounded-lg shadow-xl">
-                  <Image
-                    src="/consultancy.png"
-                    alt="IFS.ai manufacturing consulting and operational planning"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 1024px) 100vw, 640px"
-                    priority
-                  />
-                </div>
-              </div>
+              <Image
+                src="/consultancy.png"
+                alt="IFS.ai manufacturing consulting and operational planning"
+                width={1568}
+                height={1003}
+                className="h-auto w-full rounded-lg shadow-xl"
+                sizes="(max-width: 1280px) 100vw, 50vw"
+                priority
+              />
               <PartnerEcosystemStrip />
             </div>
           </div>
