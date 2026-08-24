@@ -156,21 +156,19 @@ export default function Home() {
             className={`${PAGE_SHELL} grid gap-10 pb-16 pt-10 lg:grid-cols-2 lg:gap-12 lg:pb-20 lg:pt-12`}
           >
             <div className="relative z-10 min-w-0 max-w-full">
-              <div className="inline-flex items-center rounded-full border border-slate-200 bg-white/80 px-4 py-1.5 text-sm font-semibold text-slate-700 shadow-sm backdrop-blur">
-                IFS.ai ERP • Manufacturing • Planning & Scheduling
+              <div className="inline-flex max-w-full items-center rounded-full border border-slate-200 bg-white/80 px-4 py-1.5 text-sm font-semibold text-slate-700 shadow-sm backdrop-blur">
+                <span className="text-pretty">
+                  Manufacturing Expertise for an <span className="whitespace-nowrap">AI-Enabled</span> Future
+                </span>
               </div>
 
-              <h1 className="mt-6 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl lg:text-[2.35rem] lg:leading-tight">
-                IFS.ai ERP Consulting for Manufacturing Scheduling and Optimization (MSO)
+              <h1 className="mt-6 text-3xl font-semibold leading-tight tracking-tight text-slate-950 sm:text-4xl lg:text-[2.35rem]">
+                AIORIE delivers specialist IFS.ai manufacturing expertise at every stage of your ERP journey.
               </h1>
               <p className="mt-4 max-w-xl text-lg leading-8 text-slate-700">
-                Specialist IFS.ai ERP consulting for manufacturing organisations seeking stronger
-                planning, scheduling, and operational performance.
-              </p>
-              <p className="mt-3 max-w-xl text-base leading-7 text-slate-600">
-                Practical expertise connects ERP capabilities with real manufacturing requirements,
-                helping improve production visibility, resource utilisation, scheduling decisions, and
-                process efficiency.
+                Manufacturing value is created by making products—not by managing ERP screens. AIORIE
+                helps manufacturers apply IFS.ai automation capabilities to streamline data capture,
+                automate routine processes and reduce unnecessary manual interaction.
               </p>
 
               <div className="mt-8 grid max-w-xl grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
