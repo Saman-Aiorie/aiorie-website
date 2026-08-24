@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 
 import { CALENDLY_URL, mailtoHref } from "@/components/contact-links";
+import { ManufacturingHeroCarousel } from "@/components/ManufacturingHeroCarousel";
 import { PartnerEcosystemStrip } from "@/components/PartnerEcosystemStrip";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -245,7 +245,7 @@ export default function Home() {
           />
 
           <div
-            className={`${PAGE_SHELL} grid items-start gap-10 pb-16 pt-10 xl:grid-cols-2 xl:items-center xl:gap-12 xl:pb-20 xl:pt-12`}
+            className={`${PAGE_SHELL} grid items-start gap-10 pb-16 pt-10 xl:grid-cols-[minmax(0,0.96fr)_minmax(0,1.04fr)] xl:items-center xl:gap-10 xl:pb-20 xl:pt-12`}
           >
             <div className="relative z-10 min-w-0 max-w-full">
               <div className="inline-flex max-w-full items-center rounded-full border border-slate-200 bg-white/80 px-4 py-1.5 text-sm font-semibold text-slate-700 shadow-sm backdrop-blur">
@@ -287,15 +287,7 @@ export default function Home() {
             </div>
 
             <div className="relative z-10 flex min-w-0 max-w-full flex-col gap-5">
-              <Image
-                src="/consultancy.png"
-                alt="IFS.ai manufacturing consulting and operational planning"
-                width={1568}
-                height={1003}
-                className="h-auto w-full rounded-lg shadow-xl"
-                sizes="(max-width: 1280px) 100vw, 50vw"
-                priority
-              />
+              <ManufacturingHeroCarousel />
               <PartnerEcosystemStrip />
             </div>
           </div>

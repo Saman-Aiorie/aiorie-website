@@ -27,7 +27,7 @@ export function PartnerEcosystemStrip() {
   return (
     <div className="w-full min-w-0 max-w-full">
       <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
-        Partner Ecosystem
+        Partners
       </p>
       <div className="mt-3 rounded-2xl border border-slate-200/90 bg-white px-3 py-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] sm:px-4">
         <ul className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 sm:gap-3 lg:grid-cols-4">

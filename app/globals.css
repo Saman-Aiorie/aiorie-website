@@ -29,3 +29,24 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   max-width: 100%;
 }
+
+@keyframes manufacturing-hero-drift {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.025);
+  }
+}
+
+.manufacturing-hero-drift {
+  transform-origin: center center;
+  animation: manufacturing-hero-drift 7.5s linear forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .manufacturing-hero-drift {
+    animation: none;
+    transform: none;
+  }
+}
