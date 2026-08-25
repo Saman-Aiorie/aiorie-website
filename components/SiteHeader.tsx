@@ -12,9 +12,6 @@ const NAV_LINK_CLASS =
 const SUBMENU_LINK_CLASS =
   "block rounded-md px-3 py-2.5 text-sm font-medium text-slate-700 transition-colors hover:bg-[rgba(37,99,235,0.08)] hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/35 focus-visible:ring-inset";
 
-const CTA_CLASS =
-  "shrink-0 rounded-xl bg-blue-600 px-2.5 py-2 text-[11px] font-semibold leading-tight text-white shadow-[0_6px_18px_rgba(37,99,235,0.25)] transition-all duration-300 ease-out hover:-translate-y-px hover:bg-blue-700 hover:shadow-[0_10px_26px_rgba(37,99,235,0.38)] sm:px-4 sm:py-2.5 sm:text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/45 focus-visible:ring-offset-2";
-
 function ChevronDown({ open }: { open: boolean }) {
   return (
     <svg
@@ -47,8 +44,6 @@ export function SiteHeader({ onHomepage = false, shellClassName }: SiteHeaderPro
   const labsMenuRef = useRef<HTMLDivElement>(null);
   const labsMenuId = useId();
   const mobileMenuId = useId();
-
-  const contactHref = sectionHref("contact", onHomepage);
 
   const closeLabs = useCallback(() => setLabsOpen(false), []);
   const closeMobile = useCallback(() => {
@@ -187,7 +182,7 @@ export function SiteHeader({ onHomepage = false, shellClassName }: SiteHeaderPro
 
   return (
     <header className="sticky top-0 z-50 w-full max-w-full border-b border-slate-200/80 bg-white/90 backdrop-blur">
-      <div className={`${shellClassName} flex items-center justify-between gap-2 py-4 sm:gap-4`}>
+      <div className={`${shellClassName} flex items-center justify-between gap-2 py-3 sm:gap-4 lg:py-3.5`}>
         <Link
           href="/"
           className="flex min-w-0 max-w-full flex-1 flex-col gap-1 sm:flex-row sm:items-center sm:gap-3 xl:flex-none xl:shrink-0"
@@ -197,46 +192,40 @@ export function SiteHeader({ onHomepage = false, shellClassName }: SiteHeaderPro
             alt="AIORIE"
             width={466}
             height={202}
-            className="h-auto w-[7.25rem] max-w-none shrink-0 object-contain object-left lg:w-[8.75rem]"
+            className="h-auto w-[10.875rem] max-w-none shrink-0 object-contain object-left lg:w-[13.125rem]"
             priority
             unoptimized
-            sizes="(max-width: 1023px) 116px, 140px"
+            sizes="(max-width: 1023px) 174px, 210px"
           />
-          <span className="max-w-full break-words text-[11px] leading-snug text-slate-500 sm:max-w-[11rem] sm:border-l sm:border-slate-200 sm:pl-3 md:max-w-none">
-            IFS.ai Manufacturing Specialists
+          <span className="max-w-full break-words text-[10.5px] leading-snug text-slate-500 sm:max-w-[14.5rem] sm:border-l sm:border-slate-200 sm:pl-3 sm:text-[11px] md:max-w-none">
+            IFS.ai Manufacturing ERP Specialists
           </span>
         </Link>
 
-        <nav className="hidden min-w-0 items-center gap-6 xl:flex xl:gap-8" aria-label="Main">
+        <nav className="hidden min-w-0 items-center gap-5 xl:flex xl:gap-7" aria-label="Main">
           {NAV_ITEMS.map(renderDesktopItem)}
         </nav>
 
-        <div className="flex shrink-0 items-center gap-2">
-          <button
-            type="button"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 text-slate-700 transition hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/35 xl:hidden"
-            aria-expanded={mobileOpen}
-            aria-controls={mobileMenuId}
-            aria-label={mobileOpen ? "Close menu" : "Open menu"}
-            onClick={() => setMobileOpen((open) => !open)}
-          >
-            <svg aria-hidden viewBox="0 0 24 24" fill="none" className="h-5 w-5" stroke="currentColor" strokeWidth="2">
-              {mobileOpen ? (
-                <path strokeLinecap="round" d="M6 6l12 12M18 6L6 18" />
-              ) : (
-                <>
-                  <path strokeLinecap="round" d="M4 7h16" />
-                  <path strokeLinecap="round" d="M4 12h16" />
-                  <path strokeLinecap="round" d="M4 17h16" />
-                </>
-              )}
-            </svg>
-          </button>
-
-          <a href={contactHref} className={CTA_CLASS}>
-            Request Consultation
-          </a>
-        </div>
+        <button
+          type="button"
+          className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-slate-200 text-slate-700 transition hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600/35 xl:hidden"
+          aria-expanded={mobileOpen}
+          aria-controls={mobileMenuId}
+          aria-label={mobileOpen ? "Close menu" : "Open menu"}
+          onClick={() => setMobileOpen((open) => !open)}
+        >
+          <svg aria-hidden viewBox="0 0 24 24" fill="none" className="h-5 w-5" stroke="currentColor" strokeWidth="2">
+            {mobileOpen ? (
+              <path strokeLinecap="round" d="M6 6l12 12M18 6L6 18" />
+            ) : (
+              <>
+                <path strokeLinecap="round" d="M4 7h16" />
+                <path strokeLinecap="round" d="M4 12h16" />
+                <path strokeLinecap="round" d="M4 17h16" />
+              </>
+            )}
+          </svg>
+        </button>
       </div>
 
       {mobileOpen ? (

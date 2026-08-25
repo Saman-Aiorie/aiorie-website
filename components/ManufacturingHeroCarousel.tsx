@@ -8,30 +8,35 @@ export const MANUFACTURING_HERO_SLIDES = [
     src: "/images/manufacturing/factory-team.png",
     width: 1692,
     height: 929,
+    objectPosition: "62% 58%",
     alt: "Factory professionals collaborating with automated machinery and a robotic arm on a modern manufacturing floor.",
   },
   {
     src: "/images/manufacturing/cnc-operator.png",
     width: 1672,
     height: 941,
+    objectPosition: "80% 54%",
     alt: "A CNC operator in safety glasses adjusting a milling machine while a precision metal part is machined inside.",
   },
   {
     src: "/images/manufacturing/welding-operator.png",
     width: 1613,
     height: 975,
+    objectPosition: "76% 52%",
     alt: "A welding operator in protective gear joining a metal assembly, with a bright welding arc visible.",
   },
   {
     src: "/images/manufacturing/jet-engine-inspection.png",
     width: 1779,
     height: 884,
+    objectPosition: "52% 54%",
     alt: "Technicians inspecting a jet engine turbine on a stand while reviewing data on tablets.",
   },
   {
     src: "/images/manufacturing/motorcycle-qr-scan.png",
     width: 1693,
     height: 929,
+    objectPosition: "48% 56%",
     alt: "A technician scanning a chassis QR code on a motorcycle during factory assembly.",
   },
 ] as const;
@@ -39,8 +44,6 @@ export const MANUFACTURING_HERO_SLIDES = [
 const SLIDE_COUNT = MANUFACTURING_HERO_SLIDES.length;
 const DWELL_MS = 7500;
 const FADE_MS = 2000;
-/** Tallest source frame, so every slide can sit fully visible without cropping. */
-const STAGE_ASPECT = `${MANUFACTURING_HERO_SLIDES[2].width} / ${MANUFACTURING_HERO_SLIDES[2].height}`;
 const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
 
 function wrapIndex(index: number) {
@@ -186,7 +189,8 @@ export function ManufacturingHeroCarousel() {
       role="region"
       aria-roledescription="carousel"
       aria-labelledby={labelId}
-      className="relative w-full min-w-0"
+      tabIndex={0}
+      className="relative w-full min-w-0 outline-none focus-visible:ring-2 focus-visible:ring-slate-300/80 focus-visible:ring-offset-2"
       onMouseEnter={pause}
       onMouseLeave={resume}
       onFocusCapture={pause}
@@ -196,7 +200,7 @@ export function ManufacturingHeroCarousel() {
         Manufacturing photography
       </p>
 
-      <div className="relative w-full" style={{ aspectRatio: STAGE_ASPECT }}>
+      <div className="manufacturing-hero-blend relative aspect-[16/10] w-full overflow-hidden xl:aspect-[3/2]">
         {MANUFACTURING_HERO_SLIDES.map((slide, index) => {
           const isCurrent = index === currentIndex;
           const isIncoming = index === incomingIndex;
@@ -221,40 +225,16 @@ export function ManufacturingHeroCarousel() {
                 alt={isCurrent ? slide.alt : ""}
                 fill
                 priority={index === 0}
-                sizes="(max-width: 1280px) min(100vw, 1100px), min(52vw, 760px)"
-                className="object-contain object-center"
+                sizes="(max-width: 1280px) min(100vw, 1100px), min(58vw, 860px)"
+                className="object-cover"
+                style={{ objectPosition: slide.objectPosition }}
                 onLoad={() => markLoaded(index)}
                 onError={() => markLoaded(index)}
               />
             </div>
           );
         })}
-      </div>
-
-      <div className="mt-3 flex items-center justify-center gap-1.5">
-        {MANUFACTURING_HERO_SLIDES.map((slide, index) => {
-          const selected = index === (incomingIndex ?? currentIndex);
-
-          return (
-            <button
-              key={slide.src}
-              type="button"
-              aria-label={`Show manufacturing image ${index + 1}`}
-              aria-current={selected ? "true" : undefined}
-              aria-pressed={selected}
-              onClick={() => {
-                void showSlide(index);
-              }}
-              className="flex h-7 w-7 items-center justify-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 focus-visible:ring-offset-2"
-            >
-              <span
-                className={`block h-1.5 rounded-full transition-[width,background-color] duration-300 ${
-                  selected ? "w-4 bg-slate-600" : "w-1.5 bg-slate-300"
-                }`}
-              />
-            </button>
-          );
-        })}
+        <div className="manufacturing-hero-veil pointer-events-none absolute inset-0 z-[3]" aria-hidden />
       </div>
     </div>
   );
