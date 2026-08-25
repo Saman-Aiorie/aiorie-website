@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 
 import { CALENDLY_URL, mailtoHref } from "@/components/contact-links";
+import { ManufacturingHeroCarousel } from "@/components/ManufacturingHeroCarousel";
 import { PartnerEcosystemStrip } from "@/components/PartnerEcosystemStrip";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -102,6 +102,7 @@ const MANUFACTURING_ENVIRONMENTS = [
   "Project-based manufacturing",
   "Repetitive manufacturing",
   "High-mix and capacity-constrained operations",
+  "Configure-to-order and assemble-to-order manufacturing",
 ] as const;
 
 const ENGAGEMENT_STEPS = [
@@ -164,8 +165,6 @@ const IFS_CAPABILITY_TILES = [
   },
 ] as const;
 
-const CAPABILITY_TILE_PURPLE = "#6D28D9";
-
 function CapabilityTileIcon({ name }: { name: (typeof IFS_CAPABILITY_TILES)[number]["icon"] }) {
   const iconClass = "h-5 w-5";
 
@@ -220,7 +219,7 @@ function CapabilityTileIcon({ name }: { name: (typeof IFS_CAPABILITY_TILES)[numb
 }
 
 const sectionEyebrowClass =
-  "text-sm font-semibold uppercase tracking-[0.22em] text-blue-700";
+  "text-sm font-semibold uppercase tracking-[0.22em] text-aiorie-red";
 
 export default function Home() {
   return (
@@ -233,24 +232,23 @@ export default function Home() {
           <div
             className="absolute inset-0 -z-10"
             style={{
-              backgroundColor: "#f2eef9",
+              backgroundColor: "#f4f6fb",
               backgroundImage: [
-                "radial-gradient(ellipse 110% 80% at 92% -5%, rgba(124, 58, 237, 0.2), transparent 52%)",
-                "radial-gradient(ellipse 90% 70% at -8% 102%, rgba(99, 102, 241, 0.14), transparent 56%)",
-                "linear-gradient(135deg, rgba(124, 58, 237, 0.16) 0%, rgba(167, 139, 250, 0.09) 32%, rgba(255, 255, 255, 0) 62%)",
-                "linear-gradient(305deg, rgba(99, 102, 241, 0.1) 0%, rgba(255, 255, 255, 0) 48%)",
-                "linear-gradient(180deg, #fdfcff 0%, #f4effb 42%, #f8f5fc 78%, #faf8ff 100%)",
+                "radial-gradient(ellipse 110% 80% at 92% -5%, rgba(27, 50, 107, 0.12), transparent 52%)",
+                "radial-gradient(ellipse 90% 70% at -8% 102%, rgba(27, 50, 107, 0.08), transparent 56%)",
+                "linear-gradient(135deg, rgba(27, 50, 107, 0.08) 0%, rgba(27, 50, 107, 0.03) 32%, rgba(255, 255, 255, 0) 62%)",
+                "linear-gradient(180deg, #fbfcfe 0%, #f4f6fb 42%, #f7f8fb 78%, #fafbfe 100%)",
               ].join(", "),
             }}
           />
 
           <div
-            className={`${PAGE_SHELL} grid items-start gap-10 pb-16 pt-10 xl:grid-cols-2 xl:items-center xl:gap-12 xl:pb-20 xl:pt-12`}
+            className={`${PAGE_SHELL} grid items-start gap-6 pb-16 pt-8 xl:grid-cols-[minmax(0,0.94fr)_minmax(0,1.06fr)] xl:gap-4 xl:pb-16 xl:pt-8`}
           >
             <div className="relative z-10 min-w-0 max-w-full">
-              <div className="inline-flex max-w-full items-center rounded-full border border-slate-200 bg-white/80 px-4 py-1.5 text-sm font-semibold text-slate-700 shadow-sm backdrop-blur">
+              <div className="inline-flex max-w-full items-center rounded-full border border-slate-200 bg-white/80 px-4 py-1.5 text-[13px] font-semibold text-slate-700 shadow-sm backdrop-blur sm:text-sm">
                 <span className="text-pretty">
-                  Manufacturing Expertise for an <span className="whitespace-nowrap">AI-Enabled</span> Future
+                  Manufacturing ERP Expertise for an <span className="whitespace-nowrap">AI-Enabled</span> Future
                 </span>
               </div>
 
@@ -267,16 +265,15 @@ export default function Home() {
                 {IFS_CAPABILITY_TILES.map((tile) => (
                   <article
                     key={tile.title}
-                    className="flex h-full min-h-[10.5rem] flex-col rounded-lg p-3.5 shadow-sm sm:p-4"
-                    style={{ backgroundColor: CAPABILITY_TILE_PURPLE }}
+                    className="group flex min-h-[11rem] flex-col rounded-lg bg-aiorie-navy p-3.5 shadow-sm transition-colors hover:bg-aiorie-navy-hover sm:aspect-square sm:min-h-0 sm:p-3"
                   >
-                    <div className="flex h-8 w-8 items-center justify-center text-white" aria-hidden>
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center text-aiorie-red transition-colors group-hover:text-aiorie-red-dark" aria-hidden>
                       <CapabilityTileIcon name={tile.icon} />
                     </div>
-                    <p className="mt-3 text-sm font-semibold leading-snug tracking-tight text-white">
+                    <p className="mt-2.5 text-sm font-semibold leading-snug tracking-tight text-white">
                       {tile.title}
                     </p>
-                    <ul className="mt-2 flex-1 space-y-1 text-xs leading-5 text-white/80">
+                    <ul className="mt-1.5 space-y-0.5 text-[11px] leading-4 text-white/85 sm:text-xs sm:leading-[1.15rem]">
                       {tile.items.map((item) => (
                         <li key={item}>{item}</li>
                       ))}
@@ -286,16 +283,8 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="relative z-10 flex min-w-0 max-w-full flex-col gap-5">
-              <Image
-                src="/consultancy.png"
-                alt="IFS.ai manufacturing consulting and operational planning"
-                width={1568}
-                height={1003}
-                className="h-auto w-full rounded-lg shadow-xl"
-                sizes="(max-width: 1280px) 100vw, 50vw"
-                priority
-              />
+            <div className="relative z-10 flex min-w-0 max-w-full flex-col gap-3">
+              <ManufacturingHeroCarousel />
               <PartnerEcosystemStrip />
             </div>
           </div>
@@ -348,7 +337,7 @@ export default function Home() {
                   <ul className="mt-5 space-y-2.5 text-sm leading-6 text-slate-600">
                     {service.capabilities.map((capability) => (
                       <li key={capability} className="flex gap-3">
-                        <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-blue-600" aria-hidden />
+                        <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-aiorie-navy" aria-hidden />
                         <span>{capability}</span>
                       </li>
                     ))}
@@ -378,7 +367,7 @@ export default function Home() {
               {MANUFACTURING_ENVIRONMENTS.map((environment) => (
                 <li
                   key={environment}
-                  className="rounded-3xl border border-slate-200 bg-white p-6 text-base font-medium text-slate-900 shadow-sm"
+                  className="flex h-full items-center rounded-3xl border border-slate-200 bg-white p-6 text-balance text-base font-medium text-slate-900 shadow-sm"
                 >
                   {environment}
                 </li>
@@ -401,13 +390,14 @@ export default function Home() {
               {ENGAGEMENT_STEPS.map((step, index) => (
                 <li
                   key={step.title}
-                  className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+                  className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-aiorie-navy/20 bg-white p-6 shadow-sm"
                 >
+                  <span className="absolute inset-x-0 top-0 h-0.5 bg-aiorie-red" aria-hidden />
                   <div className="flex items-center gap-3">
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-600 text-sm font-semibold text-white">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-aiorie-navy text-sm font-semibold text-white">
                       {index + 1}
                     </span>
-                    <h3 className="text-lg font-semibold text-slate-950">{step.title}</h3>
+                    <h3 className="text-lg font-semibold text-aiorie-navy">{step.title}</h3>
                   </div>
                   <p className="mt-3 text-sm leading-6 text-slate-600">{step.description}</p>
                 </li>
