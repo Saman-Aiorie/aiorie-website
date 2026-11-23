@@ -1,7 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import { Inter } from "next/font/google";
 import { useEffect, useState } from "react";
+
+const inter = Inter({ subsets: ["latin"] });
 
 const groups = [
   { id: "shortage", label: "Shortages and stock risk" },
@@ -53,10 +56,10 @@ const initial: DemoState = {
   history: { "no-demand": [{ status: "Applied", note: "Reviewed. No demand exists and no supply change is required.", run: 1, time: "22 Nov 2026, 16:36" }] },
 };
 const rank = { High: 0, Normal: 1, Low: 2 };
-const panel = "rounded-xl border border-slate-200 bg-white shadow-sm";
-const button = "rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-[#192e62] hover:bg-slate-100 focus-visible:ring-2 focus-visible:ring-blue-600";
-const primary = "rounded-lg bg-[#192e62] px-4 py-2 text-sm font-semibold text-white hover:bg-blue-900 focus-visible:ring-2 focus-visible:ring-blue-600";
-const field = "rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm";
+const panel = "rounded-xl border border-[#dedade] bg-white shadow-sm";
+const button = "rounded-lg border border-[#aaa4aa] bg-white px-3 py-2 text-sm font-semibold text-[#1a376d] hover:bg-[#f9f9f9] focus-visible:ring-2 focus-visible:ring-[#1a376d]";
+const primary = "rounded-lg bg-[#1a376d] px-4 py-2 text-sm font-semibold text-white hover:bg-[#142c58] focus-visible:ring-2 focus-visible:ring-[#1a376d]";
+const field = "rounded-lg border border-[#aaa4aa] bg-white px-3 py-2 text-sm";
 
 type Supply = { order: string; quantity: number; due: string; status: "Released" | "Planned" };
 type NeedOrdersCase = {
@@ -110,8 +113,8 @@ function NeedOrdersReview({ part }: { part: string }) {
   }
   const result = assessNeedOrders(planning);
   return (
-    <section className="space-y-3 rounded-lg border border-blue-200 bg-blue-50 p-4 text-sm" aria-label="Need Orders assessment">
-      <h3 className="font-semibold text-[#192e62]">Need Orders assessment</h3>
+    <section className="space-y-3 rounded-lg border border-[#c2cfe5] bg-[#edf2fa] p-4 text-sm" aria-label="Need Orders assessment">
+      <h3 className="font-semibold text-[#1a376d]">Need Orders assessment</h3>
       <p>This case covers the Need Orders and stock shortage messages for this demand.</p>
       <dl className="grid grid-cols-2 gap-2">
         <div><dt>Demand by {planning.due}</dt><dd className="font-semibold">{planning.demand} EA</dd></div>
@@ -123,7 +126,7 @@ function NeedOrdersReview({ part }: { part: string }) {
       <ul className="space-y-1">{result.supply.map(order => <li key={order.order}>{order.order} · {order.quantity} EA · {order.due} · {order.status}</li>)}</ul>
       <p className="font-semibold">{result.recommendation}</p>
       <details>
-        <summary className="cursor-pointer font-medium text-[#192e62]">Compare planner options</summary>
+        <summary className="cursor-pointer font-medium text-[#1a376d]">Compare planner options</summary>
         <ul className="mt-2 space-y-2">{result.options.map(option => <li key={option.action}><strong>{option.action}</strong><p>{option.result}</p></li>)}</ul>
       </details>
       <div className="rounded-lg bg-white p-3">
@@ -202,15 +205,15 @@ export default function MrpPlannerDemo() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900">
-      <header className="border-b border-slate-200 bg-white">
+    <div className={`${inter.className} min-h-screen bg-[#f4f2f4] text-[#2b363c]`}>
+      <header className="border-b border-[#dedade] bg-white">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-5 py-4">
           <div>
-            <Link href="/mrp-planner-assistant" className="text-sm font-semibold text-[#192e62] hover:underline">← MRP Planner Assistant</Link>
-            <h1 className="mt-1 text-2xl font-semibold">{queue ? "MRP Proposal Review" : "MRP Planning Lobby"}</h1>
+            <Link href="/mrp-planner-assistant" className="text-sm font-semibold text-[#1a376d] hover:underline">← MRP Planner Assistant</Link>
+            <h1 className="mt-1 text-[26px] font-semibold text-[#333333]">{queue ? "MRP Proposal Review" : "MRP Planning Lobby"}</h1>
           </div>
           <div className="flex flex-wrap items-center gap-3 text-sm">
-            <span className="rounded-full bg-blue-50 px-3 py-1 font-medium text-blue-900">Site MFG · IFS snapshot</span>
+            <span className="rounded-full bg-[#edf2fa] px-3 py-1 font-medium text-[#142c58]">Site MFG · IFS snapshot</span>
             <span>Run #{state.run} · {state.time}</span>
             <button disabled={!saved} className={button} onClick={() => { setNote(null); persist({ ...state, run: state.run + 1, time: stamp() }, "MRP rerun simulated. Previous decisions are in the history."); }}>Simulate MRP rerun</button>
           </div>
@@ -218,7 +221,7 @@ export default function MrpPlannerDemo() {
       </header>
 
       <main className="mx-auto max-w-7xl px-5 py-7">
-        <div role="status" className="mb-3 text-sm text-[#192e62]">{feedback}</div>
+        <div role="status" className="mb-3 text-sm text-[#1a376d]">{feedback}</div>
         {!queue ? (
           <>
             <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
@@ -231,18 +234,18 @@ export default function MrpPlannerDemo() {
                 ["High priority pending", pending.filter(p => priority(p) === "High").length],
                 ["Affected parts", new Set(pending.map(p => p.part)).size],
                 ["Reappeared after MRP", pending.filter(reappeared).length],
-              ].map(([label, value]) => <div key={label} className={panel + " p-4"}><dt className="text-sm text-slate-600">{label}</dt><dd className="mt-1 text-2xl font-semibold text-[#192e62]">{value}</dd></div>)}
+              ].map(([label, value]) => <div key={label} className={panel + " p-4"}><dt className="text-sm text-[#3e484d]">{label}</dt><dd className="mt-1 text-2xl font-semibold text-[#1a376d]">{value}</dd></div>)}
             </dl>
             <div className="grid gap-4 md:grid-cols-2">
               {groups.map(group => {
                 const items = proposals.filter(p => p.group === group.id);
                 const open = items.filter(p => status(p) === "Pending");
                 return (
-                  <button key={group.id} onClick={() => openQueue(group.id)} className={panel + " border-t-4 border-t-[#192e62] p-5 text-left hover:bg-blue-50/60 focus-visible:ring-2 focus-visible:ring-blue-600"}>
+                  <button key={group.id} onClick={() => openQueue(group.id)} className={panel + " border-t-4 border-t-[#1a376d] p-5 text-left hover:bg-[#edf2fa] focus-visible:ring-2 focus-visible:ring-[#1a376d]"}>
                     <h3 className="text-lg font-semibold">{group.label}</h3>
-                    <p className="my-3 text-sm text-slate-600">{open.length} of {items.length} pending · {new Set(items.map(p => p.part)).size} parts · {open.filter(reappeared).length} reappeared</p>
+                    <p className="my-3 text-sm text-[#3e484d]">{open.length} of {items.length} pending · {new Set(items.map(p => p.part)).size} parts · {open.filter(reappeared).length} reappeared</p>
                     <ul className="space-y-1 text-sm">{[...new Set(items.map(p => p.message))].map(message => <li key={message}>{message} · {items.filter(p => p.message === message).length}</li>)}</ul>
-                    <span className="mt-4 block text-sm font-semibold text-blue-800">Open queue →</span>
+                    <span className="mt-4 block text-sm font-semibold text-[#1a376d]">Open queue →</span>
                   </button>
                 );
               })}
@@ -260,16 +263,16 @@ export default function MrpPlannerDemo() {
               <select aria-label="Review status" className={field} value={filter} onChange={e => { setFilter(e.target.value); setNote(null); }}>
                 {["All statuses", "Pending", "Applied", "Skipped"].map(item => <option key={item}>{item}</option>)}
               </select>
-              <span className="text-sm text-slate-600">{visible.length} shown</span>
+              <span className="text-sm text-[#3e484d]">{visible.length} shown</span>
             </div>
             <div className="grid items-start gap-4 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]">
               <div className={panel + " overflow-x-auto"}>
                 <table className="w-full text-left text-sm">
-                  <thead className="bg-slate-100 text-slate-700"><tr>{["Part and message", "Priority", "Review status"].map(h => <th key={h} scope="col" className="px-4 py-3">{h}</th>)}</tr></thead>
+                  <thead className="bg-white text-xs text-[#3e484d]"><tr>{["Part and message", "Priority", "Review status"].map(h => <th key={h} scope="col" className="px-4 py-3">{h}</th>)}</tr></thead>
                   <tbody>
                     {visible.map(p => (
-                      <tr key={p.id} className={"border-t border-slate-200 " + (selected?.id === p.id ? "bg-blue-50" : "")}>
-                        <td className="p-4"><button aria-pressed={selected?.id === p.id} className="text-left font-semibold text-[#192e62] hover:underline" onClick={() => { setId(p.id); setNote(null); setFeedback(""); }}>{p.part}<span className="block font-normal">{p.message}</span></button></td>
+                      <tr key={p.id} className={"border-t border-[#dedade] " + (selected?.id === p.id ? "bg-[#edf2fa]" : "")}>
+                        <td className="p-4"><button aria-pressed={selected?.id === p.id} className="text-left font-semibold text-[#1a376d] hover:underline" onClick={() => { setId(p.id); setNote(null); setFeedback(""); }}>{p.part}<span className="block font-normal">{p.message}</span></button></td>
                         <td className="p-4"><select disabled={!saved} aria-label={"Priority for " + p.message} className={field} value={state.overrides[p.id] ?? ""} onChange={e => {
                           const overrides = { ...state.overrides };
                           if (e.target.value) overrides[p.id] = e.target.value as Priority;
@@ -279,13 +282,13 @@ export default function MrpPlannerDemo() {
                         <td className="p-4">{status(p)}{reappeared(p) && <span className="block text-xs font-medium text-amber-800">Reappeared</span>}</td>
                       </tr>
                     ))}
-                    {!visible.length && <tr><td colSpan={3} className="p-5 text-slate-600">No proposals match these filters.</td></tr>}
+                    {!visible.length && <tr><td colSpan={3} className="p-5 text-[#3e484d]">No proposals match these filters.</td></tr>}
                   </tbody>
                 </table>
               </div>
               {selected && (
                 <aside className={panel + " space-y-4 p-5"} aria-label="Proposal details">
-                  <div><h2 className="text-xl font-semibold">{selected.part} · {selected.description}</h2><p className="text-sm text-slate-600">{selected.message}</p></div>
+                  <div><h2 className="text-xl font-semibold">{selected.part} · {selected.description}</h2><p className="text-sm text-[#3e484d]">{selected.message}</p></div>
                   {reappeared(selected) && <p className="rounded-lg bg-amber-50 p-3 text-sm text-amber-900">Previously reviewed · Reappeared after MRP</p>}
                   <dl className="grid grid-cols-2 gap-3 text-sm">
                     {[
@@ -295,15 +298,15 @@ export default function MrpPlannerDemo() {
                       ["Required date", selected.date ?? "—"],
                       ["Shortage quantity", selected.quantity === null ? "—" : selected.quantity + " units"],
                       ["Queue priority", priority(selected)],
-                    ].map(([label, value]) => <div key={label}><dt className="text-slate-600">{label}</dt><dd className="font-semibold">{value}</dd></div>)}
+                    ].map(([label, value]) => <div key={label}><dt className="text-[#3e484d]">{label}</dt><dd className="font-semibold">{value}</dd></div>)}
                   </dl>
                   {isShortage && <NeedOrdersReview part={selected.part} />}
                   {selectedCase && (state.caseReviews?.[selected.part] ? (
-                    <p className="text-sm text-slate-700">Follow-up queued · {state.caseReviews[selected.part]?.time}</p>
+                    <p className="text-sm text-[#3e484d]">Follow-up queued · {state.caseReviews[selected.part]?.time}</p>
                   ) : (
                     <button disabled={!saved} className={primary} onClick={queueCaseReview}>Queue follow-up</button>
                   ))}
-                  {!isShortage && <div className="rounded-lg bg-slate-100 p-3 text-sm">
+                  {!isShortage && <div className="rounded-lg bg-[#f9f9f9] p-3 text-sm">
                     <h3 className="font-semibold">{selected.followup}</h3>
                     <p className="mt-1">{selected.reason}</p>
                     <p className="mt-2"><strong>Action Taken</strong> · Action taken</p>
@@ -314,19 +317,19 @@ export default function MrpPlannerDemo() {
                     <button className={button} onClick={() => setNote(note === null ? defaultNote : null)}>{note === null ? "Edit and apply" : "Cancel edit"}</button>
                     <button disabled={!saved} className={button} onClick={() => decide("Skipped")}>Skip</button>
                   </div>}
-                  <div className="border-t border-slate-200 pt-3 text-sm">
+                  <div className="border-t border-[#dedade] pt-3 text-sm">
                     <h3 className="font-semibold">Decision history</h3>
                     <ul className="mt-2 space-y-2">
-                      {(state.history[selected.id] ?? []).map(d => <li key={d.run}><strong>{d.status}</strong> · Run #{d.run} · {d.time}{d.note && <p className="break-words text-slate-600">{d.note}</p>}</li>)}
+                      {(state.history[selected.id] ?? []).map(d => <li key={d.run}><strong>{d.status}</strong> · Run #{d.run} · {d.time}{d.note && <p className="break-words text-[#3e484d]">{d.note}</p>}</li>)}
                     </ul>
-                    {!state.history[selected.id]?.length && <p className="text-slate-600">No decisions recorded.</p>}
+                    {!state.history[selected.id]?.length && <p className="text-[#3e484d]">No decisions recorded.</p>}
                   </div>
                 </aside>
               )}
             </div>
           </>
         )}
-        <p className="mt-6 text-sm text-slate-600">The queue shows IFS MFG snapshot 407785. The two pilot cases include verified results from job 411579. Follow-up decisions are stored locally.</p>
+        <p className="mt-6 text-sm text-[#3e484d]">The queue shows IFS MFG snapshot 407785. The two pilot cases include verified results from job 411579. Follow-up decisions are stored locally.</p>
       </main>
     </div>
   );
