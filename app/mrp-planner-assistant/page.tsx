@@ -54,6 +54,12 @@ export default function MrpPlannerAssistantPage() {
             <p className="mt-5 text-lg leading-8 text-slate-600">
               MRP Planner Assistant helps manufacturing planners decide which material requirements planning (MRP) exceptions to review first. A planning lobby groups proposals by issue, and a review queue brings the suggested follow-up, planning facts and decision history together.
             </p>
+            <Link
+              href="/mrp-planner-assistant/demo"
+              className="mt-7 inline-flex rounded-xl bg-[#192e62] px-5 py-3 text-sm font-semibold text-white hover:bg-blue-900 focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
+            >
+              MVP Demo
+            </Link>
           </div>
         </section>
 
