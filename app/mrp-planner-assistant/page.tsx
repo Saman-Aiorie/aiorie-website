@@ -8,7 +8,7 @@ import { PAGE_SHELL, SITE_URL } from "@/components/site-constants";
 
 const PAGE_TITLE = "MRP Planner Assistant | AIORIE Labs";
 const PAGE_DESCRIPTION =
-  "Prioritise MRP action proposals, review suggested follow-ups and track planner decisions across planning runs.";
+  "AI-assisted decision support for MRP exceptions in IFS Cloud. Explore the rules-based pilot and the hybrid AI approach in development.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -52,7 +52,7 @@ export default function MrpPlannerAssistantPage() {
               </span>
             </div>
             <p className="mt-5 text-lg leading-8 text-slate-600">
-              MRP Planner Assistant helps manufacturing planners decide which material requirements planning (MRP) exceptions to review first. A planning lobby groups proposals by issue, and a review queue brings the suggested follow-up, planning facts and decision history together.
+              An AI-assisted planner for resolving MRP exceptions in IFS Cloud. In development at AIORIE Labs, it groups related messages into planning cases, compares feasible responses and tracks what changes after the next MRP run.
             </p>
             <Link
               href="/mrp-planner-assistant/demo"
@@ -79,8 +79,36 @@ export default function MrpPlannerAssistantPage() {
               ))}
             </ul>
             <p className="mt-8 max-w-3xl text-sm leading-6 text-slate-500">
-              The current prototype demonstrates the planner workflow using sample data. Live IFS Cloud integration is in development.
+              The MVP uses planning rules and captured MFG data from IFS Cloud. Try the Need Orders pilot to see how it compares demand with existing supply and shows which exceptions remained after an MRP rerun.
             </p>
+          </div>
+        </section>
+
+        <section className="border-t border-slate-200 bg-slate-50/60 py-16 lg:py-20">
+          <div className={PAGE_SHELL}>
+            <h2 className="text-2xl font-semibold tracking-tight text-slate-950 sm:text-3xl">
+              Hybrid AI for MRP Exception Management
+            </h2>
+            <dl className="mt-8 grid gap-6 md:grid-cols-3">
+              <div>
+                <dt className="font-semibold text-slate-950">Planning rules and calculations</dt>
+                <dd className="mt-2 text-sm leading-6 text-slate-600">
+                  Evaluate quantities, due dates, available supply and constraints to identify feasible options.
+                </dd>
+              </div>
+              <div>
+                <dt className="font-semibold text-slate-950">AI decision support in development</dt>
+                <dd className="mt-2 text-sm leading-6 text-slate-600">
+                  A language model will explain trade-offs, flag missing information and use site planning procedures to support the recommendation.
+                </dd>
+              </div>
+              <div>
+                <dt className="font-semibold text-slate-950">Planned IFS workflow</dt>
+                <dd className="mt-2 text-sm leading-6 text-slate-600">
+                  The planned agentic workflow will carry out approved actions within site policy, verify the resulting IFS records and check the outcome after the next MRP run.
+                </dd>
+              </div>
+            </dl>
           </div>
         </section>
 
