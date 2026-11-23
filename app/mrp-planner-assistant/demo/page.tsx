@@ -9,11 +9,30 @@ const groups = [
 ] as const;
 
 const proposals = [
-  { id: "no-demand", group: "excess", part: "MYR-M1", description: "CNC Machined Bracket", message: "No Demand Exists", priority: "Low", reason: "The current plan shows no demand for this part.", order: null, date: null, quantity: null, followup: "Acknowledge as reviewed" },
-  { id: "excess-orders", group: "excess", part: "MYR-M1", description: "CNC Machined Bracket", message: "Excess of Orders", priority: "Low", reason: "Open supply exceeds the requirement.", order: "SO 10482", date: "11 Dec 2026", quantity: null, followup: "Investigate the supply order" },
-  { id: "remove-order", group: "excess", part: "MYR-M1", description: "CNC Machined Bracket", message: "Remove Order", priority: "Normal", reason: "Review the supply order and its demand links before deciding what to do.", order: "SO 10495", date: null, quantity: null, followup: "Investigate the supply order" },
-  { id: "stock-short", group: "shortage", part: "MYR-P1", description: "Steel Blank", message: "Available Qty In Stock < Demands", priority: "High", reason: "The sample demand due 27 Nov has a projected shortage of 350 units.", order: null, date: "27 Nov 2026", quantity: 350, followup: "Verify shortage quantity and required date" },
-  { id: "need-orders", group: "shortage", part: "MYR-P1", description: "Steel Blank", message: "Need Orders", priority: "High", reason: "The sample demand due 29 Nov has an uncovered requirement of 500 units.", order: null, date: "29 Nov 2026", quantity: 500, followup: "Verify shortage quantity and required date" },
+  {"id": "no-demand", "group": "excess", "part": "MYR-M1", "description": "CNC Machined Bracket", "message": "No Demand Exists", "priority": "Low", "reason": "IFS generated this message in MFG run 407785. Review the current planning facts before updating the proposal.", "order": null, "date": null, "quantity": null, "followup": "Confirm no follow-up is needed, then acknowledge"},
+  {"id": "excess-orders", "group": "excess", "part": "MYR-M1", "description": "CNC Machined Bracket", "message": "Excess of Orders", "priority": "Low", "reason": "IFS generated this message in MFG run 407785. Review the current planning facts before updating the proposal.", "order": null, "date": null, "quantity": null, "followup": "Review excess supply and its demand links"},
+  {"id": "remove-order", "group": "excess", "part": "MYR-M1", "description": "CNC Machined Bracket", "message": "Remove Order", "priority": "Normal", "reason": "IFS flagged planned shop order 493 for review.", "order": "SO 493 / * / *", "date": "24 Nov 2026", "quantity": null, "followup": "Investigate the linked supply order"},
+  {"id": "myr-m2-short", "group": "shortage", "part": "MYR-M2", "description": "Conveyor Drive Mount Assembly", "message": "Available Qty In Stock < Demands", "priority": "High", "reason": "IFS generated this message in MFG run 407785. Review the current planning facts before updating the proposal.", "order": null, "date": null, "quantity": null, "followup": "Verify shortage quantity, required date and available supply"},
+  {"id": "myr-m2-need", "group": "shortage", "part": "MYR-M2", "description": "Conveyor Drive Mount Assembly", "message": "Need Orders", "priority": "High", "reason": "IFS generated this message in MFG run 407785. Review the current planning facts before updating the proposal.", "order": null, "date": null, "quantity": null, "followup": "Verify shortage quantity, required date and available supply"},
+  {"id": "myr-m3-short", "group": "shortage", "part": "MYR-M3", "description": "Conveyor Idler Bracket Assembly", "message": "Available Qty In Stock < Demands", "priority": "High", "reason": "IFS generated this message in MFG run 407785. Review the current planning facts before updating the proposal.", "order": null, "date": null, "quantity": null, "followup": "Verify shortage quantity, required date and available supply"},
+  {"id": "myr-m3-need", "group": "shortage", "part": "MYR-M3", "description": "Conveyor Idler Bracket Assembly", "message": "Need Orders", "priority": "High", "reason": "IFS generated this message in MFG run 407785. Review the current planning facts before updating the proposal.", "order": null, "date": null, "quantity": null, "followup": "Verify shortage quantity, required date and available supply"},
+  {"id": "myr-m4-short", "group": "shortage", "part": "MYR-M4", "description": "Conveyor Belt Tensioner Assembly", "message": "Available Qty In Stock < Demands", "priority": "High", "reason": "IFS generated this message in MFG run 407785. Review the current planning facts before updating the proposal.", "order": null, "date": null, "quantity": null, "followup": "Verify shortage quantity, required date and available supply"},
+  {"id": "myr-m4-need", "group": "shortage", "part": "MYR-M4", "description": "Conveyor Belt Tensioner Assembly", "message": "Need Orders", "priority": "High", "reason": "IFS generated this message in MFG run 407785. Review the current planning facts before updating the proposal.", "order": null, "date": null, "quantity": null, "followup": "Verify shortage quantity, required date and available supply"},
+  {"id": "myr-m5-short", "group": "shortage", "part": "MYR-M5", "description": "Conveyor End Guard Assembly", "message": "Available Qty In Stock < Demands", "priority": "High", "reason": "IFS generated this message in MFG run 407785. Review the current planning facts before updating the proposal.", "order": null, "date": null, "quantity": null, "followup": "Verify shortage quantity, required date and available supply"},
+  {"id": "myr-m5-need", "group": "shortage", "part": "MYR-M5", "description": "Conveyor End Guard Assembly", "message": "Need Orders", "priority": "High", "reason": "IFS generated this message in MFG run 407785. Review the current planning facts before updating the proposal.", "order": null, "date": null, "quantity": null, "followup": "Verify shortage quantity, required date and available supply"},
+  {"id": "stock-short", "group": "shortage", "part": "MYR-P1", "description": "Steel Blank", "message": "Available Qty In Stock < Demands", "priority": "High", "reason": "IFS generated this message in MFG run 407785. Review the current planning facts before updating the proposal.", "order": null, "date": null, "quantity": null, "followup": "Verify shortage quantity, required date and available supply"},
+  {"id": "need-orders", "group": "shortage", "part": "MYR-P1", "description": "Steel Blank", "message": "Need Orders", "priority": "High", "reason": "IFS generated this message in MFG run 407785. Review the current planning facts before updating the proposal.", "order": null, "date": null, "quantity": null, "followup": "Verify shortage quantity, required date and available supply"},
+  {"id": "myr-p2-short", "group": "shortage", "part": "MYR-P2", "description": "Laser-Cut Mounting Plate", "message": "Available Qty In Stock < Demands", "priority": "High", "reason": "IFS generated this message in MFG run 407785. Review the current planning facts before updating the proposal.", "order": null, "date": null, "quantity": null, "followup": "Verify shortage quantity, required date and available supply"},
+  {"id": "myr-p2-need", "group": "shortage", "part": "MYR-P2", "description": "Laser-Cut Mounting Plate", "message": "Need Orders", "priority": "High", "reason": "IFS generated this message in MFG run 407785. Review the current planning facts before updating the proposal.", "order": null, "date": null, "quantity": null, "followup": "Verify shortage quantity, required date and available supply"},
+  {"id": "myr-p3-short", "group": "shortage", "part": "MYR-P3", "description": "M12 Mounting Fastener Kit", "message": "Available Qty In Stock < Demands", "priority": "High", "reason": "IFS generated this message in MFG run 407785. Review the current planning facts before updating the proposal.", "order": null, "date": null, "quantity": null, "followup": "Verify shortage quantity, required date and available supply"},
+  {"id": "myr-p3-need", "group": "shortage", "part": "MYR-P3", "description": "M12 Mounting Fastener Kit", "message": "Need Orders", "priority": "High", "reason": "IFS generated this message in MFG run 407785. Review the current planning facts before updating the proposal.", "order": null, "date": null, "quantity": null, "followup": "Verify shortage quantity, required date and available supply"},
+  {"id": "myr-p4-over", "group": "excess", "part": "MYR-P4", "description": "Sealed Conveyor Bearing", "message": "Over Supply", "priority": "Normal", "reason": "IFS flagged excess supply on PO 152, line 2. The order line has 24 EA against demand for 8 idler bracket assemblies.", "order": "PO 152 / 2 / 1", "date": "23 Nov 2026", "quantity": null, "followup": "Investigate the linked supply order"},
+  {"id": "myr-p4-short", "group": "shortage", "part": "MYR-P4", "description": "Sealed Conveyor Bearing", "message": "Available Qty In Stock < Demands", "priority": "High", "reason": "IFS generated this message in MFG run 407785. Review the current planning facts before updating the proposal.", "order": null, "date": null, "quantity": null, "followup": "Verify shortage quantity, required date and available supply"},
+  {"id": "myr-p4-excess", "group": "excess", "part": "MYR-P4", "description": "Sealed Conveyor Bearing", "message": "Excess of Orders", "priority": "Low", "reason": "IFS generated this message in MFG run 407785. Review the current planning facts before updating the proposal.", "order": null, "date": null, "quantity": null, "followup": "Review excess supply and its demand links"},
+  {"id": "myr-p5-short", "group": "shortage", "part": "MYR-P5", "description": "Threaded Tensioner Rod", "message": "Available Qty In Stock < Demands", "priority": "High", "reason": "IFS generated this message in MFG run 407785. Review the current planning facts before updating the proposal.", "order": null, "date": null, "quantity": null, "followup": "Verify shortage quantity, required date and available supply"},
+  {"id": "myr-p5-need", "group": "shortage", "part": "MYR-P5", "description": "Threaded Tensioner Rod", "message": "Need Orders", "priority": "High", "reason": "IFS generated this message in MFG run 407785. Review the current planning facts before updating the proposal.", "order": null, "date": null, "quantity": null, "followup": "Verify shortage quantity, required date and available supply"},
+  {"id": "myr-p6-short", "group": "shortage", "part": "MYR-P6", "description": "Perforated Steel Guard Panel", "message": "Available Qty In Stock < Demands", "priority": "High", "reason": "IFS generated this message in MFG run 407785. Review the current planning facts before updating the proposal.", "order": null, "date": null, "quantity": null, "followup": "Verify shortage quantity, required date and available supply"},
+  {"id": "myr-p6-need", "group": "shortage", "part": "MYR-P6", "description": "Perforated Steel Guard Panel", "message": "Need Orders", "priority": "High", "reason": "IFS generated this message in MFG run 407785. Review the current planning facts before updating the proposal.", "order": null, "date": null, "quantity": null, "followup": "Verify shortage quantity, required date and available supply"},
 ] as const;
 
 type Proposal = (typeof proposals)[number];
@@ -27,9 +46,9 @@ type DemoState = {
   history: Partial<Record<Proposal["id"], Decision[]>>;
 };
 
-const storageKey = "aiorie-mrp-demo-v1";
+const storageKey = "aiorie-mrp-mfg-407785-v1";
 const initial: DemoState = {
-  run: 2, time: "23 Nov 2026, 08:21", overrides: {},
+  run: 2, time: "23 Nov 2026, IFS job 407785", overrides: {},
   history: { "no-demand": [{ status: "Applied", note: "Reviewed. No demand exists and no supply change is required.", run: 1, time: "22 Nov 2026, 16:36" }] },
 };
 const rank = { High: 0, Normal: 1, Low: 2 };
@@ -104,7 +123,7 @@ export default function MrpPlannerDemo() {
             <h1 className="mt-1 text-2xl font-semibold">{queue ? "MRP Proposal Review" : "MRP Planning Lobby"}</h1>
           </div>
           <div className="flex flex-wrap items-center gap-3 text-sm">
-            <span className="rounded-full bg-blue-50 px-3 py-1 font-medium text-blue-900">Site MFG · Demo data</span>
+            <span className="rounded-full bg-blue-50 px-3 py-1 font-medium text-blue-900">Site MFG · IFS snapshot</span>
             <span>Run #{state.run} · {state.time}</span>
             <button disabled={!saved} className={button} onClick={() => { setNote(null); persist({ ...state, run: state.run + 1, time: stamp() }, "MRP rerun simulated. Previous decisions are in the history."); }}>Simulate MRP rerun</button>
           </div>
@@ -134,8 +153,8 @@ export default function MrpPlannerDemo() {
                 return (
                   <button key={group.id} onClick={() => openQueue(group.id)} className={panel + " border-t-4 border-t-[#192e62] p-5 text-left hover:bg-blue-50/60 focus-visible:ring-2 focus-visible:ring-blue-600"}>
                     <h3 className="text-lg font-semibold">{group.label}</h3>
-                    <p className="my-3 text-sm text-slate-600">{open.length} of {items.length} pending · {items[0].part} · {open.filter(reappeared).length} reappeared</p>
-                    <ul className="space-y-1 text-sm">{items.map(p => <li key={p.id}>{p.message}</li>)}</ul>
+                    <p className="my-3 text-sm text-slate-600">{open.length} of {items.length} pending · {new Set(items.map(p => p.part)).size} parts · {open.filter(reappeared).length} reappeared</p>
+                    <ul className="space-y-1 text-sm">{[...new Set(items.map(p => p.message))].map(message => <li key={message}>{message} · {items.filter(p => p.message === message).length}</li>)}</ul>
                     <span className="mt-4 block text-sm font-semibold text-blue-800">Open queue →</span>
                   </button>
                 );
@@ -214,7 +233,7 @@ export default function MrpPlannerDemo() {
             </div>
           </>
         )}
-        <p className="mt-6 text-sm text-slate-600">Sample planning data. Demo decisions are stored in this browser. No live IFS connection.</p>
+        <p className="mt-6 text-sm text-slate-600">IFS MFG snapshot from job 407785. Review decisions and reruns are simulated in this browser.</p>
       </main>
     </div>
   );
