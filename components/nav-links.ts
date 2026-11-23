@@ -18,6 +18,7 @@ export const NAV_ITEMS: NavItem[] = [
     submenu: [
       { label: "Cognitum APS", segment: "cognitum-aps" },
       { label: "Cognitum QMAN", segment: "cognitum-qman" },
+      { label: "MRP Planner Assistant", segment: "mrp-planner-assistant" },
     ],
   },
   { label: "About", segment: "about" },
