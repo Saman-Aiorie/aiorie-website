@@ -44,6 +44,7 @@ type DemoState = {
   time: string;
   overrides: Partial<Record<Proposal["id"], Priority>>;
   history: Partial<Record<Proposal["id"], Decision[]>>;
+  caseReviews?: Partial<Record<Proposal["part"], { note: string; time: string }>>;
 };
 
 const storageKey = "aiorie-mrp-mfg-407785-v1";
@@ -56,6 +57,84 @@ const panel = "rounded-xl border border-slate-200 bg-white shadow-sm";
 const button = "rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-[#192e62] hover:bg-slate-100 focus-visible:ring-2 focus-visible:ring-blue-600";
 const primary = "rounded-lg bg-[#192e62] px-4 py-2 text-sm font-semibold text-white hover:bg-blue-900 focus-visible:ring-2 focus-visible:ring-blue-600";
 const field = "rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm";
+
+type Supply = { order: string; quantity: number; due: string; status: "Released" | "Planned" };
+type NeedOrdersCase = {
+  demand: number;
+  due: string;
+  requisition: string;
+  converted: Supply;
+  existing: Supply[];
+  nextCheck: string;
+  remainingMessages: string[];
+};
+
+const needOrdersCases: Partial<Record<string, NeedOrdersCase>> = {
+  "MYR-P2": {
+    demand: 12, due: "2026-11-23", requisition: "736",
+    existing: [{ order: "PO 152", quantity: 4, due: "2026-11-23", status: "Released" }],
+    converted: { order: "PO 158", quantity: 8, due: "2026-11-23", status: "Planned" },
+    remainingMessages: ["Available Qty In Stock < Demands"],
+    nextCheck: "Check physical stock and PO 158 receipt status. IFS also reported a missing standard cost.",
+  },
+  "MYR-M2": {
+    demand: 12, due: "2026-11-23", requisition: "572", existing: [],
+    converted: { order: "Shop order 495", quantity: 12, due: "2026-11-24", status: "Planned" },
+    remainingMessages: ["Late Order", "Negative Projected Onhand", "Available Qty In Stock < Demands"],
+    nextCheck: "Confirm component availability and the earliest feasible date before considering an expedite.",
+  },
+};
+
+function assessNeedOrders(planning: NeedOrdersCase) {
+  const supply = [...planning.existing, planning.converted];
+  const onTime = supply.filter(order => order.due <= planning.due);
+  const firm = onTime.filter(order => order.status === "Released").reduce((sum, order) => sum + order.quantity, 0);
+  const planned = onTime.filter(order => order.status === "Planned").reduce((sum, order) => sum + order.quantity, 0);
+  const late = supply.filter(order => order.due > planning.due).reduce((sum, order) => sum + order.quantity, 0);
+  const gap = Math.max(0, planning.demand - firm - planned);
+  return {
+    supply, firm, planned, late, gap,
+    recommendation: gap > 0 ? "Review the late supply before adding an order" : "Follow up on the remaining stock warning",
+    options: [
+      { action: "Convert requisition again", result: "Already converted to " + planning.converted.order + ". Additional supply would duplicate this conversion." },
+      { action: "Bring supply forward", result: gap === 0 ? "The recorded receipt dates already cover the required date if planned supply is netted." : "Could close the timing gap. Feasibility depends on the routing, capacity and available components." },
+      { action: "Review or escalate", result: planning.nextCheck },
+    ],
+  };
+}
+
+function NeedOrdersReview({ part }: { part: string }) {
+  const planning = needOrdersCases[part];
+  if (!planning) {
+    return <p className="rounded-lg bg-amber-50 p-3 text-sm text-amber-950">Needs planner review. Confirm the open requisition, demand date and existing supply in IFS before choosing a conversion.</p>;
+  }
+  const result = assessNeedOrders(planning);
+  return (
+    <section className="space-y-3 rounded-lg border border-blue-200 bg-blue-50 p-4 text-sm" aria-label="Need Orders assessment">
+      <h3 className="font-semibold text-[#192e62]">Need Orders assessment</h3>
+      <p>This case covers the Need Orders and stock shortage messages for this demand.</p>
+      <dl className="grid grid-cols-2 gap-2">
+        <div><dt>Demand by {planning.due}</dt><dd className="font-semibold">{planning.demand} EA</dd></div>
+        <div><dt>Released supply by due date</dt><dd className="font-semibold">{result.firm} EA</dd></div>
+        <div><dt>Planned supply by due date</dt><dd className="font-semibold">{result.planned} EA</dd></div>
+        <div><dt>Supply after due date</dt><dd className="font-semibold">{result.late} EA</dd></div>
+        <div><dt>Gap if planned supply is netted</dt><dd className="font-semibold">{result.gap} EA</dd></div>
+      </dl>
+      <ul className="space-y-1">{result.supply.map(order => <li key={order.order}>{order.order} · {order.quantity} EA · {order.due} · {order.status}</li>)}</ul>
+      <p className="font-semibold">{result.recommendation}</p>
+      <details>
+        <summary className="cursor-pointer font-medium text-[#192e62]">Compare planner options</summary>
+        <ul className="mt-2 space-y-2">{result.options.map(option => <li key={option.action}><strong>{option.action}</strong><p>{option.result}</p></li>)}</ul>
+      </details>
+      <div className="rounded-lg bg-white p-3">
+        <h4 className="font-semibold">Verified in IFS MRP job 411579</h4>
+        <p>Requisition {planning.requisition} converted to {planning.converted.order}. Need Orders cleared.</p>
+        <p className="mt-1">Remaining messages</p>
+        <ul className="list-inside list-disc">{planning.remainingMessages.map(message => <li key={message}>{message}</li>)}</ul>
+      </div>
+    </section>
+  );
+}
 
 export default function MrpPlannerDemo() {
   const [saved, setSaved] = useState<DemoState | null>(null);
@@ -100,11 +179,19 @@ export default function MrpPlannerDemo() {
     && (p.part + " " + p.message + " " + p.description).toLowerCase().includes(search.trim().toLowerCase()))
     .sort((a, b) => rank[priority(a)] - rank[priority(b)]);
   const selected = visible.find(p => p.id === id) ?? visible[0];
-  const defaultNote = selected ? selected.followup + ". " + selected.reason : "";
+  const isShortage = selected?.group === "shortage";
+  const selectedCase = isShortage && selected ? needOrdersCases[selected.part] : undefined;
+  const defaultNote = selectedCase ? assessNeedOrders(selectedCase).recommendation : selected ? selected.followup + ". " + selected.reason : "";
   const stamp = () => new Date().toLocaleString("en-AU", { dateStyle: "medium", timeStyle: "short" });
 
   function openQueue(group: Group | "all" | null) {
     setQueue(group); setSearch(""); setFilter("All statuses"); setId(null); setNote(null); setFeedback("");
+  }
+
+  function queueCaseReview() {
+    if (!selected || !selectedCase || state.caseReviews?.[selected.part]) return;
+    const entry = { note: assessNeedOrders(selectedCase).recommendation, time: stamp() };
+    persist({ ...state, caseReviews: { ...state.caseReviews, [selected.part]: entry } }, "Follow-up queued in this browser.");
   }
 
   function decide(decision: Decision["status"]) {
@@ -210,13 +297,19 @@ export default function MrpPlannerDemo() {
                       ["Queue priority", priority(selected)],
                     ].map(([label, value]) => <div key={label}><dt className="text-slate-600">{label}</dt><dd className="font-semibold">{value}</dd></div>)}
                   </dl>
-                  <div className="rounded-lg bg-slate-100 p-3 text-sm">
+                  {isShortage && <NeedOrdersReview part={selected.part} />}
+                  {selectedCase && (state.caseReviews?.[selected.part] ? (
+                    <p className="text-sm text-slate-700">Follow-up queued · {state.caseReviews[selected.part]?.time}</p>
+                  ) : (
+                    <button disabled={!saved} className={primary} onClick={queueCaseReview}>Queue follow-up</button>
+                  ))}
+                  {!isShortage && <div className="rounded-lg bg-slate-100 p-3 text-sm">
                     <h3 className="font-semibold">{selected.followup}</h3>
                     <p className="mt-1">{selected.reason}</p>
                     <p className="mt-2"><strong>Action Taken</strong> · Action taken</p>
                     {note === null ? <p className="mt-1"><strong>Action Note</strong> · {defaultNote}</p> : <label className="mt-2 block font-medium">Action Note<textarea className={field + " mt-1 block w-full"} rows={3} value={note} onChange={e => setNote(e.target.value)} /></label>}
-                  </div>
-                  {status(selected) === "Pending" && <div className="flex flex-wrap gap-2">
+                  </div>}
+                  {!isShortage && status(selected) === "Pending" && <div className="flex flex-wrap gap-2">
                     <button disabled={!saved} className={primary} onClick={() => decide("Applied")}>{note === null ? "Apply" : "Save and apply"}</button>
                     <button className={button} onClick={() => setNote(note === null ? defaultNote : null)}>{note === null ? "Edit and apply" : "Cancel edit"}</button>
                     <button disabled={!saved} className={button} onClick={() => decide("Skipped")}>Skip</button>
@@ -233,7 +326,7 @@ export default function MrpPlannerDemo() {
             </div>
           </>
         )}
-        <p className="mt-6 text-sm text-slate-600">IFS MFG snapshot from job 407785. Review decisions and reruns are simulated in this browser.</p>
+        <p className="mt-6 text-sm text-slate-600">The queue shows IFS MFG snapshot 407785. The two pilot cases include verified results from job 411579. Follow-up decisions are stored locally.</p>
       </main>
     </div>
   );
