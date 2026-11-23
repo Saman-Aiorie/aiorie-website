@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { assessNeedOrders, needOrdersCases } from "./need-orders";
+import { AiRecommendation } from "./ai-recommendation";
 import { Inter } from "next/font/google";
 import { useEffect, useState } from "react";
 
@@ -61,51 +63,6 @@ const button = "rounded-lg border border-[#aaa4aa] bg-white px-3 py-2 text-sm fo
 const primary = "rounded-lg bg-[#1a376d] px-4 py-2 text-sm font-semibold text-white hover:bg-[#142c58] focus-visible:ring-2 focus-visible:ring-[#1a376d]";
 const field = "rounded-lg border border-[#aaa4aa] bg-white px-3 py-2 text-sm";
 
-type Supply = { order: string; quantity: number; due: string; status: "Released" | "Planned" };
-type NeedOrdersCase = {
-  demand: number;
-  due: string;
-  requisition: string;
-  converted: Supply;
-  existing: Supply[];
-  nextCheck: string;
-  remainingMessages: string[];
-};
-
-const needOrdersCases: Partial<Record<string, NeedOrdersCase>> = {
-  "MYR-P2": {
-    demand: 12, due: "2026-11-23", requisition: "736",
-    existing: [{ order: "PO 152", quantity: 4, due: "2026-11-23", status: "Released" }],
-    converted: { order: "PO 158", quantity: 8, due: "2026-11-23", status: "Planned" },
-    remainingMessages: ["Available Qty In Stock < Demands"],
-    nextCheck: "Check physical stock and PO 158 receipt status. IFS also reported a missing standard cost.",
-  },
-  "MYR-M2": {
-    demand: 12, due: "2026-11-23", requisition: "572", existing: [],
-    converted: { order: "Shop order 495", quantity: 12, due: "2026-11-24", status: "Planned" },
-    remainingMessages: ["Late Order", "Negative Projected Onhand", "Available Qty In Stock < Demands"],
-    nextCheck: "Confirm component availability and the earliest feasible date before considering an expedite.",
-  },
-};
-
-function assessNeedOrders(planning: NeedOrdersCase) {
-  const supply = [...planning.existing, planning.converted];
-  const onTime = supply.filter(order => order.due <= planning.due);
-  const firm = onTime.filter(order => order.status === "Released").reduce((sum, order) => sum + order.quantity, 0);
-  const planned = onTime.filter(order => order.status === "Planned").reduce((sum, order) => sum + order.quantity, 0);
-  const late = supply.filter(order => order.due > planning.due).reduce((sum, order) => sum + order.quantity, 0);
-  const gap = Math.max(0, planning.demand - firm - planned);
-  return {
-    supply, firm, planned, late, gap,
-    recommendation: gap > 0 ? "Review the late supply before adding an order" : "Follow up on the remaining stock warning",
-    options: [
-      { action: "Convert requisition again", result: "Already converted to " + planning.converted.order + ". Additional supply would duplicate this conversion." },
-      { action: "Bring supply forward", result: gap === 0 ? "The recorded receipt dates already cover the required date if planned supply is netted." : "Could close the timing gap. Feasibility depends on the routing, capacity and available components." },
-      { action: "Review or escalate", result: planning.nextCheck },
-    ],
-  };
-}
-
 function NeedOrdersReview({ part }: { part: string }) {
   const planning = needOrdersCases[part];
   if (!planning) {
@@ -129,6 +86,7 @@ function NeedOrdersReview({ part }: { part: string }) {
         <summary className="cursor-pointer font-medium text-[#1a376d]">Compare planner options</summary>
         <ul className="mt-2 space-y-2">{result.options.map(option => <li key={option.action}><strong>{option.action}</strong><p>{option.result}</p></li>)}</ul>
       </details>
+      <AiRecommendation key={part} part={part} />
       <div className="rounded-lg bg-white p-3">
         <h4 className="font-semibold">Verified in IFS MRP job 411579</h4>
         <p>Requisition {planning.requisition} converted to {planning.converted.order}. Need Orders cleared.</p>
